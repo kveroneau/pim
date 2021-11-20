@@ -19,6 +19,10 @@ type
     Label2: TLabel;
     Label3: TLabel;
     Label4: TLabel;
+    SaveAsFile: TMenuItem;
+    MenuItem2: TMenuItem;
+    OpenDialog: TOpenDialog;
+    SaveDialog: TSaveDialog;
     TaskCount: TLabel;
     PointsEarned: TLabel;
     PointsUsed: TLabel;
@@ -48,6 +52,7 @@ type
     procedure NewFileClick(Sender: TObject);
     procedure OpenFileClick(Sender: TObject);
     procedure RewardsGridButtonClick(Sender: TObject; aCol, aRow: Integer);
+    procedure SaveAsFileClick(Sender: TObject);
     procedure SaveFileClick(Sender: TObject);
     procedure StaticGridButtonClick(Sender: TObject; aCol, aRow: Integer);
     procedure TaskGridClick(Sender: TObject);
@@ -111,7 +116,10 @@ begin
   UpdatePoints;
   FFileName:='';
   StatusBar.SimpleText:='Ready';
-  LoadDefaultFile;
+  if ParamCount = 1 then
+    LoadFromFile(ParamStr(1))
+  else
+    LoadDefaultFile;
 end;
 
 procedure TTodoForm.AddTaskMenuClick(Sender: TObject);
@@ -158,7 +166,11 @@ end;
 
 procedure TTodoForm.OpenFileClick(Sender: TObject);
 begin
-  LoadFromFile('/tmp/tasks.dat');
+  {$IFDEF UNIX}
+  OpenDialog.InitialDir:=GetEnvironmentVariable('HOME');
+  {$ENDIF}
+  if OpenDialog.Execute then
+    LoadFromFile(OpenDialog.FileName);
 end;
 
 procedure TTodoForm.RewardsGridButtonClick(Sender: TObject; aCol, aRow: Integer
@@ -177,9 +189,21 @@ begin
   FModified:=True;
 end;
 
+procedure TTodoForm.SaveAsFileClick(Sender: TObject);
+begin
+  {$IFDEF UNIX}
+  SaveDialog.InitialDir:=GetEnvironmentVariable('HOME');
+  {$ENDIF}
+  if SaveDialog.Execute then
+    SaveToFile(SaveDialog.FileName);
+end;
+
 procedure TTodoForm.SaveFileClick(Sender: TObject);
 begin
-  SaveToFile('/tmp/tasks.dat');
+  if FFileName = '' then
+    SaveAsFileClick(Sender)
+  else
+    SaveToFile(FFileName);
 end;
 
 procedure TTodoForm.StaticGridButtonClick(Sender: TObject; aCol, aRow: Integer);
@@ -373,6 +397,7 @@ begin
     end;
     s.SaveToFile(fname);
     FFileName:=fname;
+    StatusBar.SimpleText:='Saved to file: '+FFileName;
   finally
     s.Free;
   end;

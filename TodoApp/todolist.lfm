@@ -223,6 +223,13 @@ object TodoForm: TTodoForm
         Caption = 'Save'
         OnClick = SaveFileClick
       end
+      object SaveAsFile: TMenuItem
+        Caption = 'Save As...'
+        OnClick = SaveAsFileClick
+      end
+      object MenuItem2: TMenuItem
+        Caption = '-'
+      end
       object ExitApp: TMenuItem
         Caption = 'Exit'
         OnClick = ExitAppClick
@@ -235,5 +242,13 @@ object TodoForm: TTodoForm
         OnClick = AddTaskMenuClick
       end
     end
+  end
+  object OpenDialog: TOpenDialog
+    Left = 422
+    Top = 64
+  end
+  object SaveDialog: TSaveDialog
+    Left = 421
+    Top = 136
   end
 end

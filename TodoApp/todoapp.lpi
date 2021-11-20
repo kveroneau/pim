@@ -107,12 +107,14 @@
         <Filename Value="todolist.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="TodoForm"/>
+        <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
       </Unit1>
       <Unit2>
         <Filename Value="newtask.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="NewTaskForm"/>
+        <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
       </Unit2>
     </Units>

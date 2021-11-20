@@ -26,9 +26,6 @@ type
 
   end;
 
-var
-  NewTaskForm: TNewTaskForm;
-
 implementation
 
 {$R *.lfm}
