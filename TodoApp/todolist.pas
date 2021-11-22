@@ -8,7 +8,7 @@ interface
 
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, Menus, ComCtrls, Grids,
-  StdCtrls, newtask;
+  StdCtrls, ExtCtrls, newtask;
 
 type
 
@@ -19,6 +19,8 @@ type
     Label2: TLabel;
     Label3: TLabel;
     Label4: TLabel;
+    HelpMenu: TMenuItem;
+    AboutMenu: TMenuItem;
     SaveAsFile: TMenuItem;
     MenuItem2: TMenuItem;
     OpenDialog: TOpenDialog;
@@ -44,6 +46,8 @@ type
     StaticPage: TTabSheet;
     RewardsPage: TTabSheet;
     TasksPage: TTabSheet;
+    Timer: TTimer;
+    procedure AboutMenuClick(Sender: TObject);
     procedure AddTaskMenuClick(Sender: TObject);
     procedure ExitAppClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
@@ -56,6 +60,7 @@ type
     procedure SaveFileClick(Sender: TObject);
     procedure StaticGridButtonClick(Sender: TObject; aCol, aRow: Integer);
     procedure TaskGridClick(Sender: TObject);
+    procedure TimerTimer(Sender: TObject);
   private
     FEarned, FUsed, FCompleted: Integer;
     FModified: Boolean;
@@ -79,7 +84,23 @@ var
 implementation
 
 type
+  TSignature = Array[0..3] of Char;
+  EInvalidFile = Class(Exception);
+
+const
+  {$IFDEF DEBUG}
+  DEFAULT_FILE = '/debugtasks.dat';
+  {$ELSE}
+  DEFAULT_FILE = '/tasks.dat';
+  {$ENDIF}
+  APP_CAPTION = 'Kevin''s Todo List';
+  TD_SIG: TSignature = ('K','T','D','*');
+  TD_VER = 1;
+
+type
   TTodoHeader = packed record
+    sig: TSignature;
+    ver: byte;
     tasks: byte;
     stasks: byte;
     rewards: byte;
@@ -117,7 +138,11 @@ begin
   FFileName:='';
   StatusBar.SimpleText:='Ready';
   if ParamCount = 1 then
-    LoadFromFile(ParamStr(1))
+    Try
+      LoadFromFile(ParamStr(1))
+    Except
+      On EInvalidFile do StatusBar.SimpleText:='Error loading '+ParamStr(1);
+    end
   else
     LoadDefaultFile;
 end;
@@ -128,6 +153,12 @@ var
   r: Integer;
 begin
   twin:=TNewTaskForm.Create(Nil);
+  if Tabs.ActivePage = TasksPage then
+    twin.TaskType.ItemIndex:=0
+  else if Tabs.ActivePage = StaticPage then
+    twin.TaskType.ItemIndex:=1
+  else if Tabs.ActivePage = RewardsPage then
+    twin.TaskType.ItemIndex:=2;
   r:=twin.ShowModal;
   if r = mrOK then
   begin
@@ -140,6 +171,11 @@ begin
   twin.Free;
 end;
 
+procedure TTodoForm.AboutMenuClick(Sender: TObject);
+begin
+  ShowMessage('Kevin''s Todo List Application v0.2');
+end;
+
 procedure TTodoForm.ExitAppClick(Sender: TObject);
 begin
   Close;
@@ -147,6 +183,9 @@ end;
 
 procedure TTodoForm.FormClose(Sender: TObject; var CloseAction: TCloseAction);
 begin
+  {$IFDEF DEBUG}
+  Exit;
+  {$ENDIF}
   if FModified then
     if FFileName <> '' then
       SaveToFile(FFileName)
@@ -162,6 +201,7 @@ end;
 procedure TTodoForm.NewFileClick(Sender: TObject);
 begin
   ClearAllData;
+  Caption:=APP_CAPTION;
 end;
 
 procedure TTodoForm.OpenFileClick(Sender: TObject);
@@ -170,7 +210,11 @@ begin
   OpenDialog.InitialDir:=GetEnvironmentVariable('HOME');
   {$ENDIF}
   if OpenDialog.Execute then
-    LoadFromFile(OpenDialog.FileName);
+    Try
+      LoadFromFile(OpenDialog.FileName);
+    Except
+      On EInvalidFile do StatusBar.SimpleText:='Attempted to load incorrect file format.';
+    end;
 end;
 
 procedure TTodoForm.RewardsGridButtonClick(Sender: TObject; aCol, aRow: Integer
@@ -187,6 +231,8 @@ begin
   Inc(FUsed, StrToInt(RewardsGrid.Cells[0, aRow]));
   UpdatePoints;
   FModified:=True;
+  StatusBar.SimpleText:='Reward claimed: '+RewardsGrid.Cells[1, aRow];
+  Timer.Enabled:=True;
 end;
 
 procedure TTodoForm.SaveAsFileClick(Sender: TObject);
@@ -211,6 +257,8 @@ begin
   Inc(FEarned, StrToInt(StaticGrid.Cells[0, aRow]));
   UpdatePoints;
   FModified:=True;
+  StatusBar.SimpleText:='Static Task completed: '+StaticGrid.Cells[1, aRow];
+  Timer.Enabled:=True;
 end;
 
 procedure TTodoForm.TaskGridClick(Sender: TObject);
@@ -224,7 +272,15 @@ begin
     UpdatePoints;
     TaskGrid.Cells[2, TaskGrid.Row] := '1';
     FModified:=True;
+    StatusBar.SimpleText:='Task completed: '+TaskGrid.Cells[1, TaskGrid.Row];
+    Timer.Enabled:=True;
   end;
+end;
+
+procedure TTodoForm.TimerTimer(Sender: TObject);
+begin
+  Timer.Enabled:=False;
+  StatusBar.SimpleText:='Ready.';
 end;
 
 procedure TTodoForm.AdjustUI;
@@ -300,13 +356,17 @@ var
   fname: string;
 begin
   {$IFDEF UNIX}
-  fname:=GetEnvironmentVariable('HOME')+'/tasks.dat';
+  fname:=GetEnvironmentVariable('HOME')+DEFAULT_FILE;
   {$ELSE}
   fname:='tasks.dat';
   {$ENDIF}
   if not FileExists(fname) then
     Exit;
-  LoadFromFile(fname);
+  Try
+    LoadFromFile(fname);
+  Except
+    On EInvalidFile do StatusBar.SimpleText:='Incorrect Todo file format.';
+  end;
 end;
 
 procedure TTodoForm.LoadFromFile(fname: string);
@@ -325,6 +385,10 @@ begin
     s.LoadFromFile(fname);
     FFileName:=fname;
     s.Read(hdr, SizeOf(hdr));
+    if hdr.sig <> TD_SIG then
+      Raise EInvalidFile.Create('Todo File Header incorrect.');
+    if hdr.ver <> TD_VER then
+      Raise EInvalidFile.Create('Todo File Version mismatch.');
     FEarned:=hdr.points;
     FUsed:=hdr.used;
     for i:=1 to hdr.tasks do
@@ -351,6 +415,8 @@ begin
     end;
     UpdatePoints;
     StatusBar.SimpleText:='Loaded from file: '+FFileName;
+    Caption:=APP_CAPTION+' // '+FFileName;
+    Timer.Enabled:=True;
   finally
     s.Free;
   end;
@@ -367,6 +433,8 @@ var
 begin
   s:=TMemoryStream.Create;
   try
+    hdr.sig:=TD_SIG;
+    hdr.ver:=TD_VER;
     hdr.tasks:=TaskGrid.RowCount-1;
     hdr.stasks:=StaticGrid.RowCount-1;
     hdr.rewards:=RewardsGrid.RowCount-1;
@@ -398,6 +466,8 @@ begin
     s.SaveToFile(fname);
     FFileName:=fname;
     StatusBar.SimpleText:='Saved to file: '+FFileName;
+    Caption:=APP_CAPTION+' // '+FFileName;
+    Timer.Enabled:=True;
   finally
     s.Free;
   end;

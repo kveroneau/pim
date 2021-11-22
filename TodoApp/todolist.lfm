@@ -3,7 +3,7 @@ object TodoForm: TTodoForm
   Height = 430
   Top = 184
   Width = 547
-  Caption = 'Todo List'
+  Caption = 'Kevin''s Todo List'
   ClientHeight = 402
   ClientWidth = 547
   DesignTimePPI = 94
@@ -242,6 +242,13 @@ object TodoForm: TTodoForm
         OnClick = AddTaskMenuClick
       end
     end
+    object HelpMenu: TMenuItem
+      Caption = 'Help'
+      object AboutMenu: TMenuItem
+        Caption = 'About...'
+        OnClick = AboutMenuClick
+      end
+    end
   end
   object OpenDialog: TOpenDialog
     Left = 422
@@ -250,5 +257,11 @@ object TodoForm: TTodoForm
   object SaveDialog: TSaveDialog
     Left = 421
     Top = 136
+  end
+  object Timer: TTimer
+    Interval = 5000
+    OnTimer = TimerTimer
+    Left = 422
+    Top = 207
   end
 end

@@ -14,6 +14,7 @@ uses
 
 begin
   RequireDerivedFormResource:=True;
+  Application.Title:='Kevin''s Todo List';
   Application.Scaled:=True;
   Application.Initialize;
   Application.CreateForm(TTodoForm, TodoForm);
