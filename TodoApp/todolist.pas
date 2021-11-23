@@ -21,6 +21,9 @@ type
     Label4: TLabel;
     HelpMenu: TMenuItem;
     AboutMenu: TMenuItem;
+    CSVMenu: TMenuItem;
+    ImportMenu: TMenuItem;
+    ExportMenu: TMenuItem;
     SaveAsFile: TMenuItem;
     MenuItem2: TMenuItem;
     OpenDialog: TOpenDialog;
@@ -50,15 +53,18 @@ type
     procedure AboutMenuClick(Sender: TObject);
     procedure AddTaskMenuClick(Sender: TObject);
     procedure ExitAppClick(Sender: TObject);
+    procedure ExportMenuClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure FormResize(Sender: TObject);
+    procedure ImportMenuClick(Sender: TObject);
     procedure NewFileClick(Sender: TObject);
     procedure OpenFileClick(Sender: TObject);
     procedure RewardsGridButtonClick(Sender: TObject; aCol, aRow: Integer);
     procedure SaveAsFileClick(Sender: TObject);
     procedure SaveFileClick(Sender: TObject);
     procedure StaticGridButtonClick(Sender: TObject; aCol, aRow: Integer);
+    procedure TabsChange(Sender: TObject);
     procedure TaskGridClick(Sender: TObject);
     procedure TimerTimer(Sender: TObject);
   private
@@ -74,6 +80,7 @@ type
     procedure LoadDefaultFile;
     procedure LoadFromFile(fname: string);
     procedure SaveToFile(fname: string);
+    procedure UpdateMenu(TabName: string);
   public
 
   end;
@@ -181,6 +188,26 @@ begin
   Close;
 end;
 
+procedure TTodoForm.ExportMenuClick(Sender: TObject);
+begin
+  {$IFDEF UNIX}
+  SaveDialog.InitialDir:=GetEnvironmentVariable('HOME');
+  {$ENDIF}
+  SaveDialog.DefaultExt:='csv';
+  SaveDialog.Filter:='CSV Files|*.csv';
+  if SaveDialog.Execute then
+  begin
+    if Tabs.ActivePage = TasksPage then
+      TaskGrid.SaveToCSVFile(SaveDialog.FileName)
+    else if Tabs.ActivePage = StaticPage then
+      StaticGrid.SaveToCSVFile(SaveDialog.FileName)
+    else if Tabs.ActivePage = RewardsPage then
+      RewardsGrid.SaveToCSVFile(SaveDialog.FileName)
+    else
+      StatusBar.SimpleText:='Please switch to the tab you wish to export from.';
+  end;
+end;
+
 procedure TTodoForm.FormClose(Sender: TObject; var CloseAction: TCloseAction);
 begin
   {$IFDEF DEBUG}
@@ -198,6 +225,26 @@ begin
   AdjustUI;
 end;
 
+procedure TTodoForm.ImportMenuClick(Sender: TObject);
+begin
+  {$IFDEF UNIX}
+  OpenDialog.InitialDir:=GetEnvironmentVariable('HOME');
+  {$ENDIF}
+  OpenDialog.DefaultExt:='csv';
+  OpenDialog.Filter:='CSV Files|*.csv';
+  if OpenDialog.Execute then
+  begin
+    if Tabs.ActivePage = TasksPage then
+      TaskGrid.LoadFromCSVFile(OpenDialog.FileName)
+    else if Tabs.ActivePage = StaticPage then
+      StaticGrid.LoadFromCSVFile(OpenDialog.FileName)
+    else if Tabs.ActivePage =  RewardsPage then
+      RewardsGrid.LoadFromCSVFile(OpenDialog.FileName)
+    else
+      StatusBar.SimpleText:='Please switch to the tab you wish to import to.';
+  end;
+end;
+
 procedure TTodoForm.NewFileClick(Sender: TObject);
 begin
   ClearAllData;
@@ -209,6 +256,8 @@ begin
   {$IFDEF UNIX}
   OpenDialog.InitialDir:=GetEnvironmentVariable('HOME');
   {$ENDIF}
+  OpenDialog.DefaultExt:='';
+  OpenDialog.Filter:='';
   if OpenDialog.Execute then
     Try
       LoadFromFile(OpenDialog.FileName);
@@ -240,6 +289,8 @@ begin
   {$IFDEF UNIX}
   SaveDialog.InitialDir:=GetEnvironmentVariable('HOME');
   {$ENDIF}
+  SaveDialog.DefaultExt:='';
+  SaveDialog.Filter:='';
   if SaveDialog.Execute then
     SaveToFile(SaveDialog.FileName);
 end;
@@ -259,6 +310,16 @@ begin
   FModified:=True;
   StatusBar.SimpleText:='Static Task completed: '+StaticGrid.Cells[1, aRow];
   Timer.Enabled:=True;
+end;
+
+procedure TTodoForm.TabsChange(Sender: TObject);
+begin
+  if Tabs.ActivePage = TasksPage then
+    UpdateMenu('Tasks')
+  else if Tabs.ActivePage = StaticPage then
+    UpdateMenu('Static Tasks')
+  else if Tabs.ActivePage = RewardsPage then
+    UpdateMenu('Rewards');
 end;
 
 procedure TTodoForm.TaskGridClick(Sender: TObject);
@@ -338,11 +399,11 @@ var
   i: integer;
 begin
   for i:=1 to TaskGrid.RowCount-1 do
-    TaskGrid.DeleteRow(i);
+    TaskGrid.DeleteRow(1);
   for i:=1 to StaticGrid.RowCount-1 do
-    StaticGrid.DeleteRow(i);
+    StaticGrid.DeleteRow(1);
   for i:=1 to RewardsGrid.RowCount-1 do
-    RewardsGrid.DeleteRow(i);
+    RewardsGrid.DeleteRow(1);
   FEarned:=0;
   FUsed:=0;
   FCompleted:=0;
@@ -472,6 +533,12 @@ begin
     s.Free;
   end;
   FModified:=False;
+end;
+
+procedure TTodoForm.UpdateMenu(TabName: string);
+begin
+  ExportMenu.Caption:='Export '+TabName+' to CSV...';
+  ImportMenu.Caption:='Import '+TabName+' from CSV...';
 end;
 
 end.

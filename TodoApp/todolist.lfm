@@ -27,6 +27,7 @@ object TodoForm: TTodoForm
     ActivePage = TasksPage
     TabIndex = 0
     TabOrder = 1
+    OnChange = TabsChange
     object TasksPage: TTabSheet
       Caption = 'Tasks'
       ClientHeight = 238
@@ -226,6 +227,17 @@ object TodoForm: TTodoForm
       object SaveAsFile: TMenuItem
         Caption = 'Save As...'
         OnClick = SaveAsFileClick
+      end
+      object CSVMenu: TMenuItem
+        Caption = 'CSV Data...'
+        object ImportMenu: TMenuItem
+          Caption = 'Import CSV...'
+          OnClick = ImportMenuClick
+        end
+        object ExportMenu: TMenuItem
+          Caption = 'Export CSV...'
+          OnClick = ExportMenuClick
+        end
       end
       object MenuItem2: TMenuItem
         Caption = '-'
