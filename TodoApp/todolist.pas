@@ -8,7 +8,7 @@ interface
 
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, Menus, ComCtrls, Grids,
-  StdCtrls, ExtCtrls, newtask;
+  StdCtrls, ExtCtrls, newtask, appsettings;
 
 type
 
@@ -24,6 +24,8 @@ type
     CSVMenu: TMenuItem;
     ImportMenu: TMenuItem;
     ExportMenu: TMenuItem;
+    SettingsMenu: TMenuItem;
+    MenuItem3: TMenuItem;
     PurgeMenu: TMenuItem;
     SaveAsFile: TMenuItem;
     MenuItem2: TMenuItem;
@@ -65,6 +67,7 @@ type
     procedure RewardsGridButtonClick(Sender: TObject; aCol, aRow: Integer);
     procedure SaveAsFileClick(Sender: TObject);
     procedure SaveFileClick(Sender: TObject);
+    procedure SettingsMenuClick(Sender: TObject);
     procedure StaticGridButtonClick(Sender: TObject; aCol, aRow: Integer);
     procedure TabsChange(Sender: TObject);
     procedure TaskGridClick(Sender: TObject);
@@ -102,9 +105,8 @@ const
   {$ELSE}
   DEFAULT_FILE = '/tasks.dat';
   {$ENDIF}
-  APP_CAPTION = 'Kevin''s Todo List';
   TD_SIG: TSignature = ('K','T','D','*');
-  TD_VER = 1;
+  TD_VER = 2;
 
 type
   TTodoHeader = packed record
@@ -115,6 +117,13 @@ type
     rewards: byte;
     points: word;
     used: word;
+  end;
+
+  TTodoSettings = packed record
+    list_name: string[20];
+    priority: byte;
+    last_tab: byte;
+    auto_save: boolean;
   end;
 
   TTodoItem = packed record
@@ -139,6 +148,7 @@ type
 
 procedure TTodoForm.FormCreate(Sender: TObject);
 begin
+  SettingsForm:=TSettingsForm.Create(Self);
   FModified:=False;
   FEarned:=0;
   FUsed:=0;
@@ -162,6 +172,7 @@ var
   r: Integer;
 begin
   twin:=TNewTaskForm.Create(Nil);
+  twin.TaskPoints.Text:=SettingsForm.DefaultPriority.Text;
   if Tabs.ActivePage = TasksPage then
     twin.TaskType.ItemIndex:=0
   else if Tabs.ActivePage = StaticPage then
@@ -178,11 +189,14 @@ begin
     end;
   end;
   twin.Free;
+  if SettingsForm.AutoSave.Checked then
+    if FFileName <> '' then
+      SaveToFile(FFileName);
 end;
 
 procedure TTodoForm.AboutMenuClick(Sender: TObject);
 begin
-  ShowMessage('Kevin''s Todo List Application v0.3');
+  ShowMessage('Kevin''s Todo List Application v0.4');
 end;
 
 procedure TTodoForm.ExitAppClick(Sender: TObject);
@@ -215,7 +229,7 @@ begin
   {$IFDEF DEBUG}
   Exit;
   {$ENDIF}
-  if FModified then
+  if FModified and SettingsForm.AutoSave.Checked then
     if FFileName <> '' then
       SaveToFile(FFileName)
     else
@@ -250,7 +264,7 @@ end;
 procedure TTodoForm.NewFileClick(Sender: TObject);
 begin
   ClearAllData;
-  Caption:=APP_CAPTION;
+  Caption:=SettingsForm.ListName.Text+#39's Todo List';
 end;
 
 procedure TTodoForm.OpenFileClick(Sender: TObject);
@@ -276,6 +290,9 @@ begin
     StaticGrid.DeleteRow(StaticGrid.Row)
   else if Tabs.ActivePage = RewardsPage then
     RewardsGrid.DeleteRow(RewardsGrid.Row);
+  if SettingsForm.AutoSave.Checked then
+    if FFileName <> '' then
+      SaveToFile(FFileName);
 end;
 
 procedure TTodoForm.RewardsGridButtonClick(Sender: TObject; aCol, aRow: Integer
@@ -313,6 +330,28 @@ begin
     SaveAsFileClick(Sender)
   else
     SaveToFile(FFileName);
+end;
+
+procedure TTodoForm.SettingsMenuClick(Sender: TObject);
+var
+  settings: TTodoSettings;
+begin
+  settings.list_name:=SettingsForm.ListName.Text;
+  settings.priority:=StrToInt(SettingsForm.DefaultPriority.Text);
+  settings.auto_save:=SettingsForm.AutoSave.Checked;
+  if SettingsForm.ShowModal = mrOK then
+  begin
+    if FFileName = '' then
+      Caption:=SettingsForm.ListName.Text+#39's Todo List'
+    else
+      Caption:=SettingsForm.ListName.Text+#39's Todo List // '+FFileName;
+  end
+  else
+  begin
+    SettingsForm.ListName.Text:=settings.list_name;
+    SettingsForm.DefaultPriority.Text:=IntToStr(settings.priority);
+    SettingsForm.AutoSave.Checked:=settings.auto_save;
+  end;
 end;
 
 procedure TTodoForm.StaticGridButtonClick(Sender: TObject; aCol, aRow: Integer);
@@ -354,6 +393,9 @@ procedure TTodoForm.TimerTimer(Sender: TObject);
 begin
   Timer.Enabled:=False;
   StatusBar.SimpleText:='Ready.';
+  if FModified and SettingsForm.AutoSave.Checked then
+    if FFileName <> '' then
+      SaveToFile(FFileName);
 end;
 
 procedure TTodoForm.AdjustUI;
@@ -422,6 +464,7 @@ begin
   UpdatePoints;
   FModified:=False;
   FFileName:='';
+  SettingsForm.ResetSettings;
 end;
 
 procedure TTodoForm.LoadDefaultFile;
@@ -446,6 +489,7 @@ procedure TTodoForm.LoadFromFile(fname: string);
 var
   s: TMemoryStream;
   hdr: TTodoHeader;
+  settings: TTodoSettings;
   task: TTodoItem;
   stask: TStaticItem;
   reward: TTodoReward;
@@ -460,8 +504,23 @@ begin
     s.Read(hdr, SizeOf(hdr));
     if hdr.sig <> TD_SIG then
       Raise EInvalidFile.Create('Todo File Header incorrect.');
-    if hdr.ver <> TD_VER then
-      Raise EInvalidFile.Create('Todo File Version mismatch.');
+    if hdr.ver = 1 then
+      WriteLn('Upgraded file version in memory.')
+    else if hdr.ver = 2 then
+    begin
+      s.Read(settings, SizeOf(settings));
+      SettingsForm.ListName.Text:=settings.list_name;
+      SettingsForm.DefaultPriority.Text:=IntToStr(settings.priority);
+      SettingsForm.AutoSave.Checked:=settings.auto_save;
+      case settings.last_tab of
+        0: Tabs.ActivePage:=TasksPage;
+        1: Tabs.ActivePage:=StaticPage;
+        2: Tabs.ActivePage:=RewardsPage;
+        3: Tabs.ActivePage:=StatsPage;
+      end;
+    end
+    else
+      Raise EInvalidFile.Create('Todo File Version incorrect.');
     FEarned:=hdr.points;
     FUsed:=hdr.used;
     for i:=1 to hdr.tasks do
@@ -488,7 +547,7 @@ begin
     end;
     UpdatePoints;
     StatusBar.SimpleText:='Loaded from file: '+FFileName;
-    Caption:=APP_CAPTION+' // '+FFileName;
+    Caption:=SettingsForm.ListName.Text+#39's Todo List // '+FFileName;
     Timer.Enabled:=True;
   finally
     s.Free;
@@ -499,6 +558,7 @@ procedure TTodoForm.SaveToFile(fname: string);
 var
   s: TMemoryStream;
   hdr: TTodoHeader;
+  settings: TTodoSettings;
   task: TTodoItem;
   stask: TStaticItem;
   reward: TTodoReward;
@@ -514,6 +574,18 @@ begin
     hdr.points:=FEarned;
     hdr.used:=FUsed;
     s.Write(hdr, SizeOf(hdr));
+    settings.list_name:=SettingsForm.ListName.Text;
+    settings.priority:=StrToInt(SettingsForm.DefaultPriority.Text);
+    settings.auto_save:=SettingsForm.AutoSave.Checked;
+    if Tabs.ActivePage = TasksPage then
+      settings.last_tab:=0
+    else if Tabs.ActivePage = StaticPage then
+      settings.last_tab:=1
+    else if Tabs.ActivePage = RewardsPage then
+      settings.last_tab:=2
+    else if Tabs.ActivePage = StatsPage then
+      settings.last_tab:=3;
+    s.Write(settings, SizeOf(settings));
     for i:=1 to hdr.tasks do
     begin
       task.priority:=StrToInt(TaskGrid.Cells[0, i]);
@@ -539,7 +611,7 @@ begin
     s.SaveToFile(fname);
     FFileName:=fname;
     StatusBar.SimpleText:='Saved to file: '+FFileName;
-    Caption:=APP_CAPTION+' // '+FFileName;
+    Caption:=SettingsForm.ListName.Text+#39's Todo List // '+FFileName;
     Timer.Enabled:=True;
   finally
     s.Free;

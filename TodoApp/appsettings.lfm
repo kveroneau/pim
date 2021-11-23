@@ -1,0 +1,87 @@
+object SettingsForm: TSettingsForm
+  Left = 365
+  Height = 163
+  Top = 241
+  Width = 313
+  BorderStyle = bsDialog
+  Caption = 'Settings'
+  ClientHeight = 163
+  ClientWidth = 313
+  DesignTimePPI = 94
+  OnCreate = FormCreate
+  ShowInTaskBar = stNever
+  LCLVersion = '2.0.12.0'
+  object Label1: TLabel
+    Left = 19
+    Height = 18
+    Top = 17
+    Width = 70
+    Caption = 'List Name:'
+    Font.Style = [fsBold]
+    ParentColor = False
+    ParentFont = False
+  end
+  object Label2: TLabel
+    Left = 19
+    Height = 18
+    Top = 48
+    Width = 106
+    Caption = 'Default Priority:'
+    Font.Style = [fsBold]
+    ParentColor = False
+    ParentFont = False
+  end
+  object Label3: TLabel
+    Left = 19
+    Height = 18
+    Top = 80
+    Width = 69
+    Caption = 'Auto Save:'
+    Font.Style = [fsBold]
+    ParentColor = False
+    ParentFont = False
+  end
+  object ListName: TEdit
+    Left = 96
+    Height = 30
+    Top = 8
+    Width = 208
+    MaxLength = 20
+    TabOrder = 0
+  end
+  object DefaultPriority: TEdit
+    Left = 128
+    Height = 30
+    Top = 40
+    Width = 78
+    MaxLength = 3
+    NumbersOnly = True
+    TabOrder = 1
+  end
+  object AutoSave: TCheckBox
+    Left = 96
+    Height = 21
+    Top = 80
+    Width = 21
+    TabOrder = 2
+  end
+  object SaveBtn: TButton
+    Left = 32
+    Height = 24
+    Top = 120
+    Width = 73
+    Caption = 'Save'
+    ModalResult = 1
+    TabOrder = 3
+  end
+  object CloseBtn: TButton
+    Left = 184
+    Height = 24
+    Top = 120
+    Width = 73
+    Cancel = True
+    Caption = 'Close'
+    ModalResult = 2
+    TabOrder = 4
+  end
+end

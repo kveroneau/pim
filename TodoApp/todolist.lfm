@@ -241,6 +241,13 @@ object TodoForm: TTodoForm
           OnClick = ExportMenuClick
         end
       end
+      object MenuItem3: TMenuItem
+        Caption = '-'
+      end
+      object SettingsMenu: TMenuItem
+        Caption = 'Settings...'
+        OnClick = SettingsMenuClick
+      end
       object MenuItem2: TMenuItem
         Caption = '-'
       end

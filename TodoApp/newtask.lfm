@@ -79,6 +79,7 @@ object NewTaskForm: TNewTaskForm
     Top = 162
     Width = 73
     Caption = 'Okay'
+    Default = True
     ModalResult = 1
     TabOrder = 3
   end

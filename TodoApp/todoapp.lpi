@@ -18,9 +18,9 @@
     </General>
     <VersionInfo>
       <UseVersionInfo Value="True"/>
-      <MinorVersionNr Value="3"/>
+      <MinorVersionNr Value="4"/>
       <Attributes pvaPreRelease="True"/>
-      <StringTable CompanyName="Kevin Veroneau Consulting Services" FileDescription="Kevin's Todo List App" InternalName="TodoApp" ProductName="Kevin's Todo List" ProductVersion="v0.3"/>
+      <StringTable CompanyName="Kevin Veroneau Consulting Services" FileDescription="Kevin's Todo List App" InternalName="TodoApp" ProductName="Kevin's Todo List" ProductVersion="v0.4"/>
     </VersionInfo>
     <BuildModes Count="3">
       <Item1 Name="Default" Default="True"/>
@@ -117,7 +117,7 @@
         <PackageName Value="LCL"/>
       </Item1>
     </RequiredPackages>
-    <Units Count="3">
+    <Units Count="4">
       <Unit0>
         <Filename Value="todoapp.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -136,6 +136,12 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
       </Unit2>
+      <Unit3>
+        <Filename Value="appsettings.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="SettingsForm"/>
+        <ResourceBaseClass Value="Form"/>
+      </Unit3>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
