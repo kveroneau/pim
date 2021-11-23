@@ -256,6 +256,11 @@ object TodoForm: TTodoForm
         ShortCut = 45
         OnClick = AddTaskMenuClick
       end
+      object PurgeMenu: TMenuItem
+        Caption = 'Purge Selected Task'
+        ShortCut = 8238
+        OnClick = PurgeMenuClick
+      end
     end
     object HelpMenu: TMenuItem
       Caption = 'Help'

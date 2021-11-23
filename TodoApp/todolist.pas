@@ -24,6 +24,7 @@ type
     CSVMenu: TMenuItem;
     ImportMenu: TMenuItem;
     ExportMenu: TMenuItem;
+    PurgeMenu: TMenuItem;
     SaveAsFile: TMenuItem;
     MenuItem2: TMenuItem;
     OpenDialog: TOpenDialog;
@@ -60,6 +61,7 @@ type
     procedure ImportMenuClick(Sender: TObject);
     procedure NewFileClick(Sender: TObject);
     procedure OpenFileClick(Sender: TObject);
+    procedure PurgeMenuClick(Sender: TObject);
     procedure RewardsGridButtonClick(Sender: TObject; aCol, aRow: Integer);
     procedure SaveAsFileClick(Sender: TObject);
     procedure SaveFileClick(Sender: TObject);
@@ -264,6 +266,16 @@ begin
     Except
       On EInvalidFile do StatusBar.SimpleText:='Attempted to load incorrect file format.';
     end;
+end;
+
+procedure TTodoForm.PurgeMenuClick(Sender: TObject);
+begin
+  if Tabs.ActivePage = TasksPage then
+    TaskGrid.DeleteRow(TaskGrid.Row)
+  else if Tabs.ActivePage = StaticPage then
+    StaticGrid.DeleteRow(StaticGrid.Row)
+  else if Tabs.ActivePage = RewardsPage then
+    RewardsGrid.DeleteRow(RewardsGrid.Row);
 end;
 
 procedure TTodoForm.RewardsGridButtonClick(Sender: TObject; aCol, aRow: Integer
