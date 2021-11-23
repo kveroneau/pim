@@ -218,10 +218,12 @@ object TodoForm: TTodoForm
       end
       object OpenFile: TMenuItem
         Caption = 'Open...'
+        ShortCut = 114
         OnClick = OpenFileClick
       end
       object SaveFile: TMenuItem
         Caption = 'Save'
+        ShortCut = 113
         OnClick = SaveFileClick
       end
       object SaveAsFile: TMenuItem
@@ -251,6 +253,7 @@ object TodoForm: TTodoForm
       Caption = 'Tasks'
       object AddTaskMenu: TMenuItem
         Caption = 'Add Item...'
+        ShortCut = 45
         OnClick = AddTaskMenuClick
       end
     end

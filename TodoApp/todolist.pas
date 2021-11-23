@@ -180,7 +180,7 @@ end;
 
 procedure TTodoForm.AboutMenuClick(Sender: TObject);
 begin
-  ShowMessage('Kevin''s Todo List Application v0.2');
+  ShowMessage('Kevin''s Todo List Application v0.3');
 end;
 
 procedure TTodoForm.ExitAppClick(Sender: TObject);
