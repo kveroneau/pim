@@ -1,0 +1,54 @@
+object HelpForm: THelpForm
+  Left = 298
+  Height = 444
+  Top = 185
+  Width = 891
+  BorderStyle = bsSingle
+  Caption = 'AGT Documentation Browser'
+  ClientHeight = 444
+  ClientWidth = 891
+  DesignTimePPI = 94
+  OnCreate = FormCreate
+  LCLVersion = '2.0.12.0'
+  object TextViewer: TMemo
+    Left = 216
+    Height = 440
+    Top = 0
+    Width = 672
+    Font.Height = -13
+    Font.Name = 'Monospace'
+    Lines.Strings = (
+      'TextViewer'
+    )
+    ParentFont = False
+    ReadOnly = True
+    ScrollBars = ssAutoVertical
+    TabOrder = 0
+  end
+  object SectionList: TListBox
+    Left = 0
+    Height = 440
+    Top = 0
+    Width = 208
+    Items.Strings = (
+      'ROOMs'
+      'NOUNs'
+      'CREATUREs'
+      'SPECIALs'
+      'Scoring'
+      'Various Constants'
+      'AGTNUM'
+      'Using Meta-Commands'
+      'Message Files'
+      'Intro to Meta-Commands'
+      'Conditional Tests'
+      'Conditional Tokens'
+      'Action Tokens'
+      'Special Situations'
+    )
+    ItemHeight = 22
+    OnClick = SectionListClick
+    ScrollWidth = 206
+    TabOrder = 1
+  end
+end
