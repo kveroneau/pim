@@ -1,0 +1,59 @@
+object Form1: TForm1
+  Left = 298
+  Height = 362
+  Top = 185
+  Width = 751
+  Caption = 'Form1'
+  ClientHeight = 334
+  ClientWidth = 751
+  DesignTimePPI = 94
+  Menu = MainMenu
+  OnCreate = FormCreate
+  OnResize = FormResize
+  LCLVersion = '2.0.12.0'
+  object Playlist: TMemo
+    Left = 0
+    Height = 352
+    Top = 0
+    Width = 464
+    Lines.Strings = (
+      'Playlist'
+    )
+    ScrollBars = ssAutoBoth
+    TabOrder = 0
+  end
+  object MainMenu: TMainMenu
+    Left = 548
+    Top = 82
+    object FileMenu: TMenuItem
+      Caption = 'File'
+      object NewMenu: TMenuItem
+        Caption = 'New'
+        OnClick = NewMenuClick
+      end
+      object OpenMenu: TMenuItem
+        Caption = 'Open...'
+        OnClick = OpenMenuClick
+      end
+      object SaveMenu: TMenuItem
+        Caption = 'Save'
+        OnClick = SaveMenuClick
+      end
+      object MenuItem6: TMenuItem
+        Caption = '-'
+      end
+      object ExitMenu: TMenuItem
+        Caption = 'Exit'
+      end
+    end
+  end
+  object OpenDialog: TOpenDialog
+    Filter = 'PlayLists|*.pls'
+    Left = 616
+    Top = 31
+  end
+  object SaveDialog: TSaveDialog
+    Left = 644
+    Top = 95
+  end
+end
