@@ -24,6 +24,8 @@ type
     CSVMenu: TMenuItem;
     ImportMenu: TMenuItem;
     ExportMenu: TMenuItem;
+    Label5: TLabel;
+    TodoLog: TMemo;
     SettingsMenu: TMenuItem;
     MenuItem3: TMenuItem;
     PurgeMenu: TMenuItem;
@@ -31,6 +33,7 @@ type
     MenuItem2: TMenuItem;
     OpenDialog: TOpenDialog;
     SaveDialog: TSaveDialog;
+    LogPage: TTabSheet;
     TaskCount: TLabel;
     PointsEarned: TLabel;
     PointsUsed: TLabel;
@@ -86,6 +89,7 @@ type
     procedure LoadFromFile(fname: string);
     procedure SaveToFile(fname: string);
     procedure UpdateMenu(TabName: string);
+    procedure AddToLog(const msg: string);
   public
 
   end;
@@ -196,7 +200,7 @@ end;
 
 procedure TTodoForm.AboutMenuClick(Sender: TObject);
 begin
-  ShowMessage('Kevin''s Todo List Application v0.4');
+  ShowMessage('Kevin''s Todo List Application v0.4.1');
 end;
 
 procedure TTodoForm.ExitAppClick(Sender: TObject);
@@ -304,6 +308,7 @@ begin
   if remaining < StrToInt(RewardsGrid.Cells[0, aRow]) then
   begin
     ShowMessage('Cannot redeem, not enough points.');
+    AddToLog('Unable to redeem reward, not enough points.');
     Exit;
   end;
   Inc(FUsed, StrToInt(RewardsGrid.Cells[0, aRow]));
@@ -311,6 +316,7 @@ begin
   FModified:=True;
   StatusBar.SimpleText:='Reward claimed: '+RewardsGrid.Cells[1, aRow];
   Timer.Enabled:=True;
+  AddToLog(StatusBar.SimpleText);
 end;
 
 procedure TTodoForm.SaveAsFileClick(Sender: TObject);
@@ -361,6 +367,7 @@ begin
   FModified:=True;
   StatusBar.SimpleText:='Static Task completed: '+StaticGrid.Cells[1, aRow];
   Timer.Enabled:=True;
+  AddToLog(StatusBar.SimpleText);
 end;
 
 procedure TTodoForm.TabsChange(Sender: TObject);
@@ -386,6 +393,7 @@ begin
     FModified:=True;
     StatusBar.SimpleText:='Task completed: '+TaskGrid.Cells[1, TaskGrid.Row];
     Timer.Enabled:=True;
+    AddToLog('Task completed: '+TaskGrid.Cells[1, TaskGrid.Row]);
   end;
 end;
 
@@ -417,6 +425,10 @@ begin
   RewardsGrid.Width:=RewardsPage.Width;
   RewardsGrid.Height:=RewardsPage.Height;
   RewardsGrid.Columns.Items[1].Width:=RewardsGrid.Width-90;
+  LogPage.Width:=tabs.ClientWidth;
+  LogPage.Height:=tabs.ClientHeight;
+  TodoLog.Width:=LogPage.ClientWidth;
+  TodoLog.Height:=LogPage.ClientHeight-24;
 end;
 
 procedure TTodoForm.AddTask(points, title: string);
@@ -424,6 +436,7 @@ begin
   TaskGrid.InsertRowWithValues(TaskGrid.RowCount, [points, title, '0']);
   Tabs.ActivePage:=TasksPage;
   FModified:=True;
+  AddToLog('Add new Task: '+title);
 end;
 
 procedure TTodoForm.AddStaticTask(points, title: string);
@@ -431,6 +444,7 @@ begin
   StaticGrid.InsertRowWithValues(StaticGrid.RowCount, [points, title, 'X']);
   Tabs.ActivePage:=StaticPage;
   FModified:=True;
+  AddToLog('Added new Static Task: '+title);
 end;
 
 procedure TTodoForm.AddReward(points, title: string);
@@ -438,6 +452,7 @@ begin
   RewardsGrid.InsertRowWithValues(RewardsGrid.RowCount, [points, title, 'X']);
   Tabs.ActivePage:=RewardsPage;
   FModified:=True;
+  AddToLog('Added new Reward: '+title);
 end;
 
 procedure TTodoForm.UpdatePoints;
@@ -464,6 +479,7 @@ begin
   UpdatePoints;
   FModified:=False;
   FFileName:='';
+  TodoLog.Lines.Clear;
   SettingsForm.ResetSettings;
 end;
 
@@ -517,6 +533,7 @@ begin
         1: Tabs.ActivePage:=StaticPage;
         2: Tabs.ActivePage:=RewardsPage;
         3: Tabs.ActivePage:=StatsPage;
+        4: Tabs.ActivePage:=LogPage;
       end;
     end
     else
@@ -584,7 +601,9 @@ begin
     else if Tabs.ActivePage = RewardsPage then
       settings.last_tab:=2
     else if Tabs.ActivePage = StatsPage then
-      settings.last_tab:=3;
+      settings.last_tab:=3
+    else if Tabs.ActivePage = LogPage then
+      settings.last_tab:=4;
     s.Write(settings, SizeOf(settings));
     for i:=1 to hdr.tasks do
     begin
@@ -623,6 +642,12 @@ procedure TTodoForm.UpdateMenu(TabName: string);
 begin
   ExportMenu.Caption:='Export '+TabName+' to CSV...';
   ImportMenu.Caption:='Import '+TabName+' from CSV...';
+end;
+
+procedure TTodoForm.AddToLog(const msg: string);
+begin
+  TodoLog.Lines.Add(msg);
+  TodoLog.SelStart:=TodoLog.GetTextLen;
 end;
 
 end.

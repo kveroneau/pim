@@ -24,8 +24,8 @@ object TodoForm: TTodoForm
     Height = 268
     Top = 0
     Width = 316
-    ActivePage = TasksPage
-    TabIndex = 0
+    ActivePage = LogPage
+    TabIndex = 4
     TabOrder = 1
     OnChange = TabsChange
     object TasksPage: TTabSheet
@@ -204,6 +204,30 @@ object TodoForm: TTodoForm
         Width = 63
         Caption = 'TaskCount'
         ParentColor = False
+      end
+    end
+    object LogPage: TTabSheet
+      Caption = 'Log'
+      ClientHeight = 238
+      ClientWidth = 306
+      object TodoLog: TMemo
+        Left = 0
+        Height = 88
+        Top = 24
+        Width = 147
+        ReadOnly = True
+        ScrollBars = ssAutoBoth
+        TabOrder = 0
+      end
+      object Label5: TLabel
+        Left = 0
+        Height = 18
+        Top = 0
+        Width = 344
+        Caption = 'The Logs created here are not saved by the program.'
+        Font.Style = [fsBold]
+        ParentColor = False
+        ParentFont = False
       end
     end
   end
