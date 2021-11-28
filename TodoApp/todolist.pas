@@ -25,6 +25,8 @@ type
     ImportMenu: TMenuItem;
     ExportMenu: TMenuItem;
     Label5: TLabel;
+    Label6: TLabel;
+    CurSessPt: TLabel;
     TodoLog: TMemo;
     SettingsMenu: TMenuItem;
     MenuItem3: TMenuItem;
@@ -76,7 +78,7 @@ type
     procedure TaskGridClick(Sender: TObject);
     procedure TimerTimer(Sender: TObject);
   private
-    FEarned, FUsed, FCompleted: Integer;
+    FEarned, FUsed, FCompleted, FCurSession: Integer;
     FModified: Boolean;
     FFileName: string;
     procedure AdjustUI;
@@ -312,6 +314,7 @@ begin
     Exit;
   end;
   Inc(FUsed, StrToInt(RewardsGrid.Cells[0, aRow]));
+  Dec(FCurSession, StrToInt(RewardsGrid.Cells[0, aRow]));
   UpdatePoints;
   FModified:=True;
   StatusBar.SimpleText:='Reward claimed: '+RewardsGrid.Cells[1, aRow];
@@ -363,6 +366,7 @@ end;
 procedure TTodoForm.StaticGridButtonClick(Sender: TObject; aCol, aRow: Integer);
 begin
   Inc(FEarned, StrToInt(StaticGrid.Cells[0, aRow]));
+  Inc(FCurSession, StrToInt(StaticGrid.Cells[0, aRow]));
   UpdatePoints;
   FModified:=True;
   StatusBar.SimpleText:='Static Task completed: '+StaticGrid.Cells[1, aRow];
@@ -388,6 +392,7 @@ begin
   begin
     Inc(FEarned, StrToInt(TaskGrid.Cells[0, TaskGrid.Row]));
     Inc(FCompleted);
+    Inc(FCurSession, StrToInt(TaskGrid.Cells[0, TaskGrid.Row]));
     UpdatePoints;
     TaskGrid.Cells[2, TaskGrid.Row] := '1';
     FModified:=True;
@@ -461,6 +466,7 @@ begin
   PointsUsed.Caption:=IntToStr(FUsed);
   PointsRemaining.Caption:=IntToStr(FEarned-FUsed);
   TaskCount.Caption:=IntToStr(FCompleted)+' / '+IntToStr(TaskGrid.RowCount-1);
+  CurSessPt.Caption:=IntToStr(FCurSession);
 end;
 
 procedure TTodoForm.ClearAllData;
@@ -476,6 +482,7 @@ begin
   FEarned:=0;
   FUsed:=0;
   FCompleted:=0;
+  FCurSession:=0;
   UpdatePoints;
   FModified:=False;
   FFileName:='';
@@ -521,7 +528,7 @@ begin
     if hdr.sig <> TD_SIG then
       Raise EInvalidFile.Create('Todo File Header incorrect.');
     if hdr.ver = 1 then
-      WriteLn('Upgraded file version in memory.')
+      AddToLog('Upgraded file version in memory.')
     else if hdr.ver = 2 then
     begin
       s.Read(settings, SizeOf(settings));
