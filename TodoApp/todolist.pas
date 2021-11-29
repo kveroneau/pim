@@ -92,6 +92,7 @@ type
     procedure SaveToFile(fname: string);
     procedure UpdateMenu(TabName: string);
     procedure AddToLog(const msg: string);
+    procedure UpdateStatus(const msg: string);
   public
 
   end;
@@ -161,12 +162,12 @@ begin
   FCompleted:=0;
   UpdatePoints;
   FFileName:='';
-  StatusBar.SimpleText:='Ready';
+  UpdateStatus('Ready');
   if ParamCount = 1 then
     Try
       LoadFromFile(ParamStr(1))
     Except
-      On EInvalidFile do StatusBar.SimpleText:='Error loading '+ParamStr(1);
+      On EInvalidFile do UpdateStatus('Error loading '+ParamStr(1));
     end
   else
     LoadDefaultFile;
@@ -226,7 +227,7 @@ begin
     else if Tabs.ActivePage = RewardsPage then
       RewardsGrid.SaveToCSVFile(SaveDialog.FileName)
     else
-      StatusBar.SimpleText:='Please switch to the tab you wish to export from.';
+      UpdateStatus('Please switch to the tab you wish to export from.');
   end;
 end;
 
@@ -263,7 +264,7 @@ begin
     else if Tabs.ActivePage =  RewardsPage then
       RewardsGrid.LoadFromCSVFile(OpenDialog.FileName)
     else
-      StatusBar.SimpleText:='Please switch to the tab you wish to import to.';
+      UpdateStatus('Please switch to the tab you wish to import to.');
   end;
 end;
 
@@ -284,7 +285,7 @@ begin
     Try
       LoadFromFile(OpenDialog.FileName);
     Except
-      On EInvalidFile do StatusBar.SimpleText:='Attempted to load incorrect file format.';
+      On EInvalidFile do UpdateStatus('Attempted to load incorrect file format.');
     end;
 end;
 
@@ -317,9 +318,9 @@ begin
   Dec(FCurSession, StrToInt(RewardsGrid.Cells[0, aRow]));
   UpdatePoints;
   FModified:=True;
-  StatusBar.SimpleText:='Reward claimed: '+RewardsGrid.Cells[1, aRow];
+  UpdateStatus('Reward claimed: '+RewardsGrid.Cells[1, aRow]);
   Timer.Enabled:=True;
-  AddToLog(StatusBar.SimpleText);
+  AddToLog(StatusBar.Panels.Items[0].Text);
 end;
 
 procedure TTodoForm.SaveAsFileClick(Sender: TObject);
@@ -369,9 +370,9 @@ begin
   Inc(FCurSession, StrToInt(StaticGrid.Cells[0, aRow]));
   UpdatePoints;
   FModified:=True;
-  StatusBar.SimpleText:='Static Task completed: '+StaticGrid.Cells[1, aRow];
+  UpdateStatus('Static Task completed: '+StaticGrid.Cells[1, aRow]);
   Timer.Enabled:=True;
-  AddToLog(StatusBar.SimpleText);
+  AddToLog(StatusBar.Panels.Items[0].Text);
 end;
 
 procedure TTodoForm.TabsChange(Sender: TObject);
@@ -396,7 +397,7 @@ begin
     UpdatePoints;
     TaskGrid.Cells[2, TaskGrid.Row] := '1';
     FModified:=True;
-    StatusBar.SimpleText:='Task completed: '+TaskGrid.Cells[1, TaskGrid.Row];
+    UpdateStatus('Task completed: '+TaskGrid.Cells[1, TaskGrid.Row]);
     Timer.Enabled:=True;
     AddToLog('Task completed: '+TaskGrid.Cells[1, TaskGrid.Row]);
   end;
@@ -405,7 +406,7 @@ end;
 procedure TTodoForm.TimerTimer(Sender: TObject);
 begin
   Timer.Enabled:=False;
-  StatusBar.SimpleText:='Ready.';
+  UpdateStatus('Ready.');
   if FModified and SettingsForm.AutoSave.Checked then
     if FFileName <> '' then
       SaveToFile(FFileName);
@@ -434,6 +435,7 @@ begin
   LogPage.Height:=tabs.ClientHeight;
   TodoLog.Width:=LogPage.ClientWidth;
   TodoLog.Height:=LogPage.ClientHeight-24;
+  StatusBar.Panels.Items[0].Width:=ClientWidth-100;
 end;
 
 procedure TTodoForm.AddTask(points, title: string);
@@ -504,7 +506,7 @@ begin
   Try
     LoadFromFile(fname);
   Except
-    On EInvalidFile do StatusBar.SimpleText:='Incorrect Todo file format.';
+    On EInvalidFile do UpdateStatus('Incorrect Todo file format.');
   end;
 end;
 
@@ -540,7 +542,7 @@ begin
         1: Tabs.ActivePage:=StaticPage;
         2: Tabs.ActivePage:=RewardsPage;
         3: Tabs.ActivePage:=StatsPage;
-        4: Tabs.ActivePage:=LogPage;
+        4: Tabs.ActivePage:=TasksPage;
       end;
     end
     else
@@ -570,7 +572,7 @@ begin
       RewardsGrid.InsertRowWithValues(i, [IntToStr(reward.cost), reward.title, 'X']);
     end;
     UpdatePoints;
-    StatusBar.SimpleText:='Loaded from file: '+FFileName;
+    UpdateStatus('Loaded from file: '+FFileName);
     Caption:=SettingsForm.ListName.Text+#39's Todo List // '+FFileName;
     Timer.Enabled:=True;
   finally
@@ -636,7 +638,7 @@ begin
     end;
     s.SaveToFile(fname);
     FFileName:=fname;
-    StatusBar.SimpleText:='Saved to file: '+FFileName;
+    UpdateStatus('Saved to file: '+FFileName);
     Caption:=SettingsForm.ListName.Text+#39's Todo List // '+FFileName;
     Timer.Enabled:=True;
   finally
@@ -655,6 +657,12 @@ procedure TTodoForm.AddToLog(const msg: string);
 begin
   TodoLog.Lines.Add(msg);
   TodoLog.SelStart:=TodoLog.GetTextLen;
+end;
+
+procedure TTodoForm.UpdateStatus(const msg: string);
+begin
+  StatusBar.Panels.Items[0].Text:=msg;
+  StatusBar.Panels.Items[1].Text:='Points: '+IntToStr(FEarned-FUsed);
 end;
 
 end.
