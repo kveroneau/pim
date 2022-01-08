@@ -1,0 +1,9 @@
+object DBListForm: TDBListForm
+  Left = 298
+  Height = 235
+  Top = 185
+  Width = 313
+  Caption = 'The Sims Household Database'
+  DesignTimePPI = 94
+  LCLVersion = '2.0.12.0'
+end
