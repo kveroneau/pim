@@ -1,0 +1,353 @@
+object Sim: TSim
+  Left = 0
+  Height = 443
+  Top = 0
+  Width = 843
+  ClientHeight = 443
+  ClientWidth = 843
+  DesignTimePPI = 94
+  ParentFont = False
+  TabOrder = 0
+  DesignLeft = 362
+  DesignTop = 276
+  object Label1: TLabel
+    Left = 8
+    Height = 18
+    Top = 8
+    Width = 69
+    Caption = 'First Name:'
+    ParentColor = False
+  end
+  object Label2: TLabel
+    Left = 312
+    Height = 18
+    Top = 8
+    Width = 68
+    Caption = 'Last Name:'
+    ParentColor = False
+  end
+  object Label3: TLabel
+    Left = 624
+    Height = 18
+    Top = 8
+    Width = 30
+    Caption = 'Role:'
+    ParentColor = False
+  end
+  object Label4: TLabel
+    Left = 8
+    Height = 18
+    Top = 48
+    Width = 62
+    Caption = 'Life Stage:'
+    ParentColor = False
+  end
+  object Label5: TLabel
+    Left = 232
+    Height = 18
+    Top = 48
+    Width = 43
+    Caption = 'Zodiac:'
+    ParentColor = False
+  end
+  object Label6: TLabel
+    Left = 448
+    Height = 18
+    Top = 48
+    Width = 65
+    Caption = 'Aspiration:'
+    ParentColor = False
+  end
+  object Label7: TLabel
+    Left = 8
+    Height = 18
+    Top = 88
+    Width = 112
+    Caption = 'Second Aspiration:'
+    ParentColor = False
+  end
+  object Label8: TLabel
+    Left = 360
+    Height = 18
+    Top = 88
+    Width = 90
+    Caption = 'Life time Want:'
+    ParentColor = False
+  end
+  object Label9: TLabel
+    Left = 8
+    Height = 18
+    Top = 128
+    Width = 43
+    Caption = 'Career:'
+    ParentColor = False
+  end
+  object Label10: TLabel
+    Left = 360
+    Height = 18
+    Top = 128
+    Width = 35
+    Caption = 'Level:'
+    ParentColor = False
+  end
+  object Label11: TLabel
+    Left = 512
+    Height = 18
+    Top = 128
+    Width = 24
+    Caption = 'Job:'
+    ParentColor = False
+  end
+  object Label12: TLabel
+    Left = 8
+    Height = 18
+    Top = 168
+    Width = 45
+    Caption = 'Hobby:'
+    ParentColor = False
+  end
+  object Label13: TLabel
+    Left = 264
+    Height = 18
+    Top = 168
+    Width = 72
+    Caption = 'Sub-Hobby:'
+    ParentColor = False
+  end
+  object Label14: TLabel
+    Left = 552
+    Height = 18
+    Top = 168
+    Width = 72
+    Caption = 'Generation:'
+    ParentColor = False
+  end
+  object Label15: TLabel
+    Left = 8
+    Height = 18
+    Top = 208
+    Width = 49
+    Caption = 'Partner:'
+    ParentColor = False
+  end
+  object FNotes: TMemo
+    Left = 8
+    Height = 192
+    Top = 240
+    Width = 824
+    TabOrder = 0
+  end
+  object FFirstName: TEdit
+    Left = 80
+    Height = 30
+    Top = 0
+    Width = 224
+    TabOrder = 1
+  end
+  object FLastName: TEdit
+    Left = 384
+    Height = 30
+    Top = 0
+    Width = 232
+    TabOrder = 2
+  end
+  object FRole: TComboBox
+    Left = 656
+    Height = 30
+    Top = 0
+    Width = 184
+    AutoSize = False
+    ItemHeight = 0
+    Items.Strings = (
+      'Founder'
+      'Spouse'
+      'Father'
+      'Mother'
+      'Son'
+      'Daughter'
+    )
+    TabOrder = 3
+  end
+  object FLifeStage: TComboBox
+    Left = 80
+    Height = 30
+    Top = 40
+    Width = 144
+    AutoSize = False
+    ItemHeight = 0
+    Items.Strings = (
+      'Baby'
+      'Toddler'
+      'Child'
+      'Teen'
+      'Young Adult'
+      'Adult'
+      'Elder'
+      'Dead'
+    )
+    TabOrder = 4
+  end
+  object FZodiac: TComboBox
+    Left = 280
+    Height = 30
+    Top = 40
+    Width = 162
+    AutoSize = False
+    ItemHeight = 0
+    Items.Strings = (
+      'Aries'
+      'Taurus'
+      'Gemini'
+      'Cancer'
+      'Leo'
+      'Virgo'
+      'Libra'
+      'Scorpio'
+      'Sagittarius'
+      'Capricorn'
+      'Aquarius'
+      'Pisces'
+    )
+    Style = csDropDownList
+    TabOrder = 5
+  end
+  object FAspiration: TComboBox
+    Left = 518
+    Height = 30
+    Top = 40
+    Width = 234
+    AutoSize = False
+    ItemHeight = 0
+    Items.Strings = (
+      'Family'
+      'Fortune'
+      'Knowledge'
+      'Popularity'
+      'Romance'
+      'Power'
+      'Pleasure'
+      'Grilled Cheese'
+    )
+    TabOrder = 6
+  end
+  object FAspiration2: TComboBox
+    Left = 126
+    Height = 30
+    Top = 80
+    Width = 226
+    AutoSize = False
+    ItemHeight = 0
+    TabOrder = 7
+  end
+  object FLTW: TComboBox
+    Left = 456
+    Height = 30
+    Top = 80
+    Width = 386
+    AutoSize = False
+    ItemHeight = 0
+    Items.Strings = (
+      'Reach Golden Anniversary'
+      'Graduate 3 Children from College'
+      'Marry Off 6 Children'
+      'Have 6 Grandchildren'
+      'Raise 20 Puppies or Kittens'
+      'Earn §100,000'
+      'Own 5 Top-Level Businesses'
+      'Have 6 Pets Reach the Top Career Level'
+      'Max Out 7 Skills'
+      'Have 20 Simultaneous Best Friends'
+      'Have 20 Simultaneous Pet Best Friends'
+      'Have 20 Simultaneous Lovers'
+      'WooHoo with 20 Different Sims'
+      'Have 50 1st Dates'
+      'Have 50 Dream Dates'
+      'Eat 200 Grilled Cheese Sandwiches'
+      'Become Hall of Famer'
+      'Become Business Tycoon'
+      'Become Criminal Mastermind'
+      'Become Celebrity Chef'
+      'Become Captain Hero'
+      'Become Chief of Staff'
+      'Become General'
+      'Become Mad Scientist'
+      'Become Mayor'
+      'Become Professional Party Guest'
+      'Become Mogul'
+      'Become Game President'
+      'Become Space Pirate'
+      'Become Education Minister'
+      'Become Game Designer'
+      'Become Media Magnate'
+      'Become The Law'
+      'Become Rock God'
+      'Become City Planner'
+      'Become World Class Ballet Dancer'
+      'Become Prestidigitator'
+      'Become Head of SCIA'
+      'Become Hand of Poseidon'
+    )
+    TabOrder = 8
+  end
+  object FCareer: TComboBox
+    Left = 56
+    Height = 30
+    Top = 120
+    Width = 298
+    AutoSize = False
+    ItemHeight = 0
+    Items.Strings = (
+      'Medical'
+      'Science'
+      'Athletic'
+      'Politics'
+      'Military'
+    )
+    TabOrder = 9
+  end
+  object FLevel: TTrackBar
+    Left = 400
+    Height = 42
+    Top = 112
+    Width = 98
+    Position = 0
+    TabOrder = 10
+  end
+  object FJob: TEdit
+    Left = 544
+    Height = 30
+    Top = 120
+    Width = 296
+    TabOrder = 11
+  end
+  object FHobby: TEdit
+    Left = 56
+    Height = 30
+    Top = 160
+    Width = 200
+    TabOrder = 12
+  end
+  object FSubHobby: TEdit
+    Left = 344
+    Height = 30
+    Top = 160
+    Width = 200
+    TabOrder = 13
+  end
+  object FGeneration: TTrackBar
+    Left = 632
+    Height = 42
+    Top = 152
+    Width = 208
+    Position = 0
+    TabOrder = 14
+  end
+  object FPartner: TComboBox
+    Left = 72
+    Height = 30
+    Top = 200
+    Width = 186
+    ItemHeight = 0
+    TabOrder = 15
+  end
+end

@@ -1,0 +1,31 @@
+object SimForm: TSimForm
+  Left = 352
+  Height = 508
+  Top = 223
+  Width = 841
+  Caption = 'Sim Data Viewer'
+  ClientHeight = 508
+  ClientWidth = 841
+  DesignTimePPI = 94
+  LCLVersion = '2.0.12.0'
+  inline Sim1: TSim
+  end
+  object BtnSave: TButton
+    Left = 200
+    Height = 24
+    Top = 456
+    Width = 73
+    Caption = 'Save Sim'
+    ModalResult = 1
+    TabOrder = 1
+  end
+  object BtnClose: TButton
+    Left = 504
+    Height = 24
+    Top = 456
+    Width = 73
+    Caption = 'Close'
+    ModalResult = 11
+    TabOrder = 2
+  end
+end

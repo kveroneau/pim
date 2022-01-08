@@ -112,7 +112,7 @@
         <PackageName Value="LCL"/>
       </Item1>
     </RequiredPackages>
-    <Units Count="2">
+    <Units Count="5">
       <Unit0>
         <Filename Value="SimsDB.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -123,6 +123,22 @@
         <ComponentName Value="DBListForm"/>
         <ResourceBaseClass Value="Form"/>
       </Unit1>
+      <Unit2>
+        <Filename Value="dbcomponents.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit2>
+      <Unit3>
+        <Filename Value="simwindow.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="SimForm"/>
+        <ResourceBaseClass Value="Form"/>
+      </Unit3>
+      <Unit4>
+        <Filename Value="simdata.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="Sim"/>
+        <ResourceBaseClass Value="Frame"/>
+      </Unit4>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
