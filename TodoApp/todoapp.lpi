@@ -18,10 +18,9 @@
     </General>
     <VersionInfo>
       <UseVersionInfo Value="True"/>
-      <MinorVersionNr Value="4"/>
-      <RevisionNr Value="1"/>
+      <MinorVersionNr Value="5"/>
       <Attributes pvaPreRelease="True"/>
-      <StringTable CompanyName="Kevin Veroneau Consulting Services" FileDescription="Kevin's Todo List App" InternalName="TodoApp" ProductName="Kevin's Todo List" ProductVersion="v0.4.1"/>
+      <StringTable CompanyName="Kevin Veroneau Consulting Services" FileDescription="Kevin's Todo List App" InternalName="TodoApp" ProductName="Kevin's Todo List" ProductVersion="v0.5"/>
     </VersionInfo>
     <BuildModes Count="3">
       <Item1 Name="Default" Default="True"/>

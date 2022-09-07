@@ -8,7 +8,7 @@ interface
 
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, Menus, ComCtrls, Grids,
-  StdCtrls, ExtCtrls, newtask, appsettings;
+  StdCtrls, ExtCtrls, newtask, appsettings, StrUtils;
 
 type
 
@@ -27,6 +27,7 @@ type
     Label5: TLabel;
     Label6: TLabel;
     CurSessPt: TLabel;
+    ArchiveMenu: TMenuItem;
     TodoLog: TMemo;
     SettingsMenu: TMenuItem;
     MenuItem3: TMenuItem;
@@ -60,11 +61,13 @@ type
     Timer: TTimer;
     procedure AboutMenuClick(Sender: TObject);
     procedure AddTaskMenuClick(Sender: TObject);
+    procedure ArchiveMenuClick(Sender: TObject);
     procedure ExitAppClick(Sender: TObject);
     procedure ExportMenuClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure FormResize(Sender: TObject);
+    procedure FormShow(Sender: TObject);
     procedure ImportMenuClick(Sender: TObject);
     procedure NewFileClick(Sender: TObject);
     procedure OpenFileClick(Sender: TObject);
@@ -81,6 +84,7 @@ type
     FEarned, FUsed, FCompleted, FCurSession: Integer;
     FModified: Boolean;
     FFileName: string;
+    SettingsForm: TSettingsForm;
     procedure AdjustUI;
     procedure AddTask(points, title: string);
     procedure AddStaticTask(points, title: string);
@@ -88,13 +92,13 @@ type
     procedure UpdatePoints;
     procedure ClearAllData;
     procedure LoadDefaultFile;
-    procedure LoadFromFile(fname: string);
-    procedure SaveToFile(fname: string);
     procedure UpdateMenu(TabName: string);
     procedure AddToLog(const msg: string);
     procedure UpdateStatus(const msg: string);
   public
-
+    procedure LoadFromFile(fname: string);
+    procedure SaveToFile(fname: string);
+    procedure ArchiveTask(points, title: string);
   end;
 
 var
@@ -163,14 +167,6 @@ begin
   UpdatePoints;
   FFileName:='';
   UpdateStatus('Ready');
-  if ParamCount = 1 then
-    Try
-      LoadFromFile(ParamStr(1))
-    Except
-      On EInvalidFile do UpdateStatus('Error loading '+ParamStr(1));
-    end
-  else
-    LoadDefaultFile;
 end;
 
 procedure TTodoForm.AddTaskMenuClick(Sender: TObject);
@@ -201,9 +197,54 @@ begin
       SaveToFile(FFileName);
 end;
 
+procedure TTodoForm.ArchiveMenuClick(Sender: TObject);
+var
+  ArcFName, o: string;
+  ArcForm: TTodoForm;
+  i, count: integer;
+  PRows: Array of integer;
+begin
+  if FFileName = 'tasks.dat' then
+    ArcFName:='archive.dat'
+  else
+    ArcFName:=Copy2Symb(FFileName, '.')+'.arc';
+  WriteLn(FFileName);
+  UpdateStatus('Archiving completed items to '+ArcFName+'...');
+  Application.ProcessMessages;
+  ArcForm:=TTodoForm.Create(Nil);
+  try
+    if FileExists(ArcFName) then
+      ArcForm.LoadFromFile(ArcFName);
+    count:=0;
+    for i:=0 to TaskGrid.RowCount-1 do
+      if TaskGrid.Cells[2,i] = '1' then
+      begin
+        Inc(count);
+        SetLength(PRows, count); { Probably not efficient, but I'm not trying to be here. }
+        PRows[count-1]:=i;
+        AddToLog('Archiving '+TaskGrid.Cells[1,i]+'...');
+        ArcForm.ArchiveTask(TaskGrid.Cells[0,i], TaskGrid.Cells[1,i]);
+      end;
+    ArcForm.SaveToFile(ArcFName);
+    UpdateStatus('Archived '+IntToStr(count)+' items to '+ArcFName);
+    Application.ProcessMessages;
+    ArcForm.Top:=Top+40;
+    ArcForm.Left:=Left+40;
+    ArcForm.ShowModal;
+  finally
+    ArcForm.Free;
+  end;
+  for i:=count-1 downto 0 do
+    TaskGrid.DeleteRow(PRows[i]);
+  SetLength(PRows, 0);
+  FModified:=True;
+  FCompleted:=0;
+  UpdatePoints;
+end;
+
 procedure TTodoForm.AboutMenuClick(Sender: TObject);
 begin
-  ShowMessage('Kevin''s Todo List Application v0.4.1');
+  ShowMessage('Kevin''s Todo List Application v0.5');
 end;
 
 procedure TTodoForm.ExitAppClick(Sender: TObject);
@@ -246,6 +287,23 @@ end;
 procedure TTodoForm.FormResize(Sender: TObject);
 begin
   AdjustUI;
+end;
+
+procedure TTodoForm.FormShow(Sender: TObject);
+begin
+  if fsModal in FormState then
+  begin
+    UpdatePoints;
+    Exit;
+  end;
+  if ParamCount = 1 then
+    Try
+      LoadFromFile(ParamStr(1))
+    Except
+      On EInvalidFile do UpdateStatus('Error loading '+ParamStr(1));
+    end
+  else
+    LoadDefaultFile;
 end;
 
 procedure TTodoForm.ImportMenuClick(Sender: TObject);
@@ -645,6 +703,14 @@ begin
     s.Free;
   end;
   FModified:=False;
+end;
+
+procedure TTodoForm.ArchiveTask(points, title: string);
+begin
+  TaskGrid.InsertRowWithValues(TaskGrid.RowCount, [points, title, '1']);
+  Inc(FEarned, StrToInt(points));
+  Inc(FCompleted);
+  Inc(FCurSession, StrToInt(points));
 end;
 
 procedure TTodoForm.UpdateMenu(TabName: string);

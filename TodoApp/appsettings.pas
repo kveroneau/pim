@@ -27,9 +27,6 @@ type
     procedure ResetSettings;
   end;
 
-var
-  SettingsForm: TSettingsForm;
-
 implementation
 
 {$R *.lfm}
