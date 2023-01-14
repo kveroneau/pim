@@ -7,16 +7,16 @@ recording using OBS's "Capture Single Window" feature.
 
 Status will include:
   - The Current generation of the household
-    - Optionally display the rotation, if it's a rotation game.
+    - Optionally display the rotation, if it's a rotational game.
   - The real-world date a household was born
-    - Note if household is of a first-generation aka make in CAS.
+    - Note if household is of a first-generation aka made in CAS.
     - Could potentially calculate how old a household is in real-world day.
     - Could also keep track of exact real-world playtime via an app timer.
   - Family bank of last update in SimsDB
     - Nice for keeping track of what a balance was before and after a play session.
   - Where the lot is located in-game
     - Such as World, Neighbourhood, etc...
-  - List of current Sims in the household, as of last update Database update.
+  - List of current Sims in the household, as of last Database update.
     - Could potentially show a photo of the Sim
     - The Sims name(nice for people jumping into a stream to know who's who)
     - The Current Life Stage of that Sim
