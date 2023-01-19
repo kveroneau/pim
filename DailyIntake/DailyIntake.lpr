@@ -7,7 +7,7 @@ uses
   cthreads,
   {$ENDIF}{$ENDIF}
   Interfaces, // this includes the LCL widgetset
-  Forms, mainwin
+  Forms, mainwin, intakedb, foodform, mealform
   { you can add units after this };
 
 {$R *.res}
@@ -17,7 +17,9 @@ begin
   Application.Title:='Daily Food Intake';
   Application.Scaled:=True;
   Application.Initialize;
-  Application.CreateForm(TForm1, Form1);
+  Application.CreateForm(TDailyIntakeForm, DailyIntakeForm);
+  Application.CreateForm(TFoodDialog, FoodDialog);
+  Application.CreateForm(TMealDialog, MealDialog);
   Application.Run;
 end.
 

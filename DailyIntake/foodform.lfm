@@ -1,0 +1,164 @@
+object FoodDialog: TFoodDialog
+  Left = 299
+  Height = 272
+  Top = 254
+  Width = 313
+  BorderStyle = bsDialog
+  Caption = 'Food Editor'
+  ClientHeight = 272
+  ClientWidth = 313
+  DesignTimePPI = 94
+  LCLVersion = '2.0.12.0'
+  object Label1: TLabel
+    Left = 8
+    Height = 18
+    Top = 8
+    Width = 44
+    Caption = 'Name:'
+    Font.Style = [fsBold]
+    ParentColor = False
+    ParentFont = False
+  end
+  object Label2: TLabel
+    Left = 8
+    Height = 18
+    Top = 40
+    Width = 40
+    Caption = 'Carbs:'
+    Font.Style = [fsBold]
+    ParentColor = False
+    ParentFont = False
+  end
+  object Label3: TLabel
+    Left = 8
+    Height = 18
+    Top = 72
+    Width = 42
+    Caption = 'Sugar:'
+    Font.Style = [fsBold]
+    ParentColor = False
+    ParentFont = False
+  end
+  object Label4: TLabel
+    Left = 8
+    Height = 18
+    Top = 104
+    Width = 53
+    Caption = 'Sodium:'
+    Font.Style = [fsBold]
+    ParentColor = False
+    ParentFont = False
+  end
+  object Label5: TLabel
+    Left = 8
+    Height = 18
+    Top = 136
+    Width = 37
+    Caption = 'Fiber:'
+    Font.Style = [fsBold]
+    ParentColor = False
+    ParentFont = False
+  end
+  object Label6: TLabel
+    Left = 8
+    Height = 18
+    Top = 168
+    Width = 53
+    Caption = 'Protein:'
+    Font.Style = [fsBold]
+    ParentColor = False
+    ParentFont = False
+  end
+  object Label7: TLabel
+    Left = 8
+    Height = 18
+    Top = 200
+    Width = 72
+    Caption = 'Potassium:'
+    Font.Style = [fsBold]
+    ParentColor = False
+    ParentFont = False
+  end
+  object FoodName: TEdit
+    Left = 64
+    Height = 30
+    Top = 0
+    Width = 232
+    MaxLength = 30
+    TabOrder = 0
+    Text = 'FoodName'
+  end
+  object Carbs: TEdit
+    Left = 64
+    Height = 30
+    Top = 32
+    Width = 78
+    NumbersOnly = True
+    TabOrder = 1
+    Text = 'Carbs'
+  end
+  object Sugar: TEdit
+    Left = 64
+    Height = 30
+    Top = 64
+    Width = 78
+    NumbersOnly = True
+    TabOrder = 2
+    Text = 'Sugar'
+  end
+  object Sodium: TEdit
+    Left = 64
+    Height = 30
+    Top = 96
+    Width = 78
+    NumbersOnly = True
+    TabOrder = 3
+    Text = 'Sodium'
+  end
+  object Fiber: TEdit
+    Left = 64
+    Height = 30
+    Top = 128
+    Width = 78
+    NumbersOnly = True
+    TabOrder = 4
+    Text = 'Fiber'
+  end
+  object Protein: TEdit
+    Left = 64
+    Height = 30
+    Top = 160
+    Width = 78
+    NumbersOnly = True
+    TabOrder = 5
+    Text = 'Protein'
+  end
+  object Potassium: TEdit
+    Left = 88
+    Height = 30
+    Top = 192
+    Width = 78
+    NumbersOnly = True
+    TabOrder = 6
+    Text = 'Potassium'
+  end
+  object SaveBtn: TButton
+    Left = 48
+    Height = 24
+    Top = 232
+    Width = 73
+    Caption = 'Save'
+    Default = True
+    ModalResult = 1
+    TabOrder = 7
+  end
+  object CloseBtn: TButton
+    Left = 176
+    Height = 24
+    Top = 232
+    Width = 73
+    Caption = 'Close'
+    ModalResult = 11
+    TabOrder = 8
+  end
+end

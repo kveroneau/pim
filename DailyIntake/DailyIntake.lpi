@@ -104,7 +104,7 @@
         <PackageName Value="LCL"/>
       </Item1>
     </RequiredPackages>
-    <Units Count="2">
+    <Units Count="5">
       <Unit0>
         <Filename Value="DailyIntake.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -112,9 +112,26 @@
       <Unit1>
         <Filename Value="mainwin.pas"/>
         <IsPartOfProject Value="True"/>
-        <ComponentName Value="Form1"/>
+        <ComponentName Value="DailyIntakeForm"/>
+        <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
       </Unit1>
+      <Unit2>
+        <Filename Value="intakedb.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit2>
+      <Unit3>
+        <Filename Value="foodform.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="FoodDialog"/>
+        <ResourceBaseClass Value="Form"/>
+      </Unit3>
+      <Unit4>
+        <Filename Value="mealform.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="MealDialog"/>
+        <ResourceBaseClass Value="Form"/>
+      </Unit4>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
