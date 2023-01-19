@@ -14,6 +14,19 @@ type
 
   TMealDialog = class(TForm)
     AddBtn: TButton;
+    Carbs: TLabel;
+    Fiber: TLabel;
+    Potassium: TLabel;
+    Protein: TLabel;
+    Sodium: TLabel;
+    Sugar: TLabel;
+    Label4: TLabel;
+    Label5: TLabel;
+    Label6: TLabel;
+    Label7: TLabel;
+    Label8: TLabel;
+    Label9: TLabel;
+    MealCalc: TGroupBox;
     NewBtn: TButton;
     SaveBtn: TButton;
     CloseBtn: TButton;
@@ -31,6 +44,7 @@ type
   private
     FMeal: PMeal;
     FFoodList: PFoodItems;
+    procedure Calculate;
   public
     procedure PopulateForm(meal: PMeal; food_list: PFoodItems);
     procedure GrabData(meal: PMeal);
@@ -46,8 +60,12 @@ implementation
 { TMealDialog }
 
 procedure TMealDialog.AddBtnClick(Sender: TObject);
+var
+  i: Integer;
 begin
-  MealContent.Items.Add(FoodList.GetSelectedText);
+  i:=MealContent.Items.Add(FoodList.GetSelectedText);
+  FMeal^.food[i]:=FoodList.ItemIndex+1;
+  Calculate;
 end;
 
 procedure TMealDialog.FoodListDblClick(Sender: TObject);
@@ -84,6 +102,22 @@ end;
 procedure TMealDialog.RemoveBtnClick(Sender: TObject);
 begin
   MealContent.Items.Delete(MealContent.ItemIndex);
+  GrabData(FMeal);
+  Calculate;
+end;
+
+procedure TMealDialog.Calculate;
+var
+  o_carbs, o_sugar, o_sodium, o_fiber, o_protein, o_potassium: word;
+begin
+  GetMealData(FMeal, FFoodList, o_carbs, o_sugar, o_sodium, o_fiber, o_protein,
+    o_potassium);
+  Carbs.Caption:=IntToStr(o_carbs);
+  Sugar.Caption:=IntToStr(o_sugar);
+  Sodium.Caption:=IntToStr(o_sodium);
+  Fiber.Caption:=IntToStr(o_fiber);
+  Protein.Caption:=IntToStr(o_protein);
+  Potassium.Caption:=IntToStr(o_potassium);
 end;
 
 procedure TMealDialog.PopulateForm(meal: PMeal; food_list: PFoodItems);
@@ -103,6 +137,7 @@ begin
       f:=FMeal^.food[i]-1;
       MealContent.Items.Add(FFoodList^[f].name);
     end;
+  Calculate;
 end;
 
 procedure TMealDialog.GrabData(meal: PMeal);

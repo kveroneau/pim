@@ -2,11 +2,11 @@ object MealDialog: TMealDialog
   Left = 370
   Height = 388
   Top = 226
-  Width = 382
+  Width = 613
   BorderStyle = bsDialog
   Caption = 'Meal Editor'
   ClientHeight = 388
-  ClientWidth = 382
+  ClientWidth = 613
   DesignTimePPI = 94
   LCLVersion = '2.0.12.0'
   object Label1: TLabel
@@ -114,5 +114,123 @@ object MealDialog: TMealDialog
     Caption = 'New'
     OnClick = NewBtnClick
     TabOrder = 7
+  end
+  object MealCalc: TGroupBox
+    Left = 392
+    Height = 304
+    Top = 8
+    Width = 208
+    Caption = 'Total Nutrients'
+    ClientHeight = 285
+    ClientWidth = 206
+    TabOrder = 8
+    object Label4: TLabel
+      Left = 16
+      Height = 18
+      Top = 16
+      Width = 40
+      Caption = 'Carbs:'
+      Font.Style = [fsBold]
+      ParentColor = False
+      ParentFont = False
+    end
+    object Label5: TLabel
+      Left = 17
+      Height = 18
+      Top = 48
+      Width = 42
+      Caption = 'Sugar:'
+      Font.Style = [fsBold]
+      ParentColor = False
+      ParentFont = False
+    end
+    object Label6: TLabel
+      Left = 17
+      Height = 18
+      Top = 80
+      Width = 53
+      Caption = 'Sodium:'
+      Font.Style = [fsBold]
+      ParentColor = False
+      ParentFont = False
+    end
+    object Label7: TLabel
+      Left = 17
+      Height = 18
+      Top = 112
+      Width = 37
+      Caption = 'Fiber:'
+      Font.Style = [fsBold]
+      ParentColor = False
+      ParentFont = False
+    end
+    object Label8: TLabel
+      Left = 16
+      Height = 18
+      Top = 144
+      Width = 53
+      Caption = 'Protein:'
+      Font.Style = [fsBold]
+      ParentColor = False
+      ParentFont = False
+    end
+    object Label9: TLabel
+      Left = 17
+      Height = 18
+      Top = 176
+      Width = 72
+      Caption = 'Potassium:'
+      Font.Style = [fsBold]
+      ParentColor = False
+      ParentFont = False
+    end
+    object Carbs: TLabel
+      Left = 112
+      Height = 18
+      Top = 16
+      Width = 34
+      Caption = 'Carbs'
+      ParentColor = False
+    end
+    object Sugar: TLabel
+      Left = 112
+      Height = 18
+      Top = 48
+      Width = 35
+      Caption = 'Sugar'
+      ParentColor = False
+    end
+    object Sodium: TLabel
+      Left = 112
+      Height = 18
+      Top = 80
+      Width = 46
+      Caption = 'Sodium'
+      ParentColor = False
+    end
+    object Fiber: TLabel
+      Left = 112
+      Height = 18
+      Top = 112
+      Width = 30
+      Caption = 'Fiber'
+      ParentColor = False
+    end
+    object Protein: TLabel
+      Left = 112
+      Height = 18
+      Top = 144
+      Width = 44
+      Caption = 'Protein'
+      ParentColor = False
+    end
+    object Potassium: TLabel
+      Left = 112
+      Height = 18
+      Top = 176
+      Width = 63
+      Caption = 'Potassium'
+      ParentColor = False
+    end
   end
 end
