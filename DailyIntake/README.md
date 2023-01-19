@@ -25,3 +25,13 @@ stored and loaded back from your disk.
  * The ability to calculate an appropriate amount of sodium intake given an
    amount of potassium to counteract the sodium based on the 1:3 ratio.
  * Other future calculations may be added which are deemed useful.
+
+### Future ideas:
+
+ * Have a web-based UI for easily adding meals and viewing stats.
+   - Will be written as a stand-alone HTTP Server application which can then
+     be deployed to a compatible server alongside a compatible database file.
+   - This will also be provided as a Docker image to be easily deployed.
+ * A potential ncurses interface for running without a GUI from say an SSH
+   session to also add meals and view stats.
+
