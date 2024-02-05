@@ -1,0 +1,124 @@
+object PushPullForm: TPushPullForm
+  Left = 430
+  Height = 332
+  Top = 250
+  Width = 348
+  BorderStyle = bsDialog
+  Caption = 'PushPullForm'
+  ClientHeight = 332
+  ClientWidth = 348
+  DesignTimePPI = 94
+  OnClose = FormClose
+  OnHide = FormHide
+  LCLVersion = '2.0.12.0'
+  object Label1: TLabel
+    Left = 8
+    Height = 18
+    Top = 8
+    Width = 72
+    Caption = 'Hostname:'
+    Font.Style = [fsBold]
+    ParentColor = False
+    ParentFont = False
+  end
+  object TIEdit1: TTIEdit
+    Left = 88
+    Height = 24
+    Top = 2
+    Width = 256
+    Link.TIObject = LazNetcard
+    Link.TIPropertyName = 'ServerName'
+    TabOrder = 0
+  end
+  object Label2: TLabel
+    Left = 8
+    Height = 18
+    Top = 40
+    Width = 32
+    Caption = 'Port:'
+    Font.Style = [fsBold]
+    ParentColor = False
+    ParentFont = False
+  end
+  object TIEdit2: TTIEdit
+    Left = 88
+    Height = 24
+    Top = 34
+    Width = 78
+    Link.TIObject = LazNetcard
+    Link.TIPropertyName = 'Port'
+    TabOrder = 1
+  end
+  object Label3: TLabel
+    Left = 8
+    Height = 18
+    Top = 72
+    Width = 80
+    Caption = 'Auth Token:'
+    Font.Style = [fsBold]
+    ParentColor = False
+    ParentFont = False
+  end
+  object TICheckBox1: TTICheckBox
+    Left = 8
+    Height = 23
+    Top = 104
+    Width = 88
+    Caption = 'Connect'
+    Link.TIObject = LazNetcard
+    Link.TIPropertyName = 'Active'
+    OnChange = TICheckBox1Change
+    PropertyNameAsCaption = False
+    TabOrder = 2
+  end
+  object Label4: TLabel
+    Left = 176
+    Height = 18
+    Top = 38
+    Width = 34
+    Caption = 'Card:'
+    Font.Style = [fsBold]
+    ParentColor = False
+    ParentFont = False
+  end
+  object TIEdit3: TTIEdit
+    Left = 224
+    Height = 24
+    Top = 34
+    Width = 78
+    Link.TIObject = LazNetcard
+    Link.TIPropertyName = 'CardID'
+    TabOrder = 3
+  end
+  object TIEdit4: TTIEdit
+    Left = 96
+    Height = 24
+    Top = 66
+    Width = 240
+    EchoMode = emPassword
+    Link.TIObject = LazNetcard
+    Link.TIPropertyName = 'AuthToken'
+    PasswordChar = '#'
+    TabOrder = 4
+  end
+  object BlockList: TListBox
+    Left = 8
+    Height = 184
+    Top = 136
+    Width = 328
+    ItemHeight = 0
+    OnDblClick = BlockListDblClick
+    ScrollWidth = 326
+    TabOrder = 5
+    TopIndex = -1
+  end
+  object LazNetcard: TLazNetcard
+    ServerName = 'mcserver'
+    Port = 3845
+    CardID = 0
+    BlockID = 0
+    Active = False
+    Left = 288
+    Top = 96
+  end
+end

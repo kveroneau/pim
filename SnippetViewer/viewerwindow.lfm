@@ -1,0 +1,25 @@
+object ViewerForm: TViewerForm
+  Left = 380
+  Height = 391
+  Top = 219
+  Width = 502
+  Caption = 'ViewerForm'
+  ClientHeight = 391
+  ClientWidth = 502
+  DesignTimePPI = 94
+  OnResize = FormResize
+  ShowInTaskBar = stAlways
+  LCLVersion = '2.0.12.0'
+  object SnippetText: TMemo
+    Left = 0
+    Height = 88
+    Top = 0
+    Width = 147
+    Lines.Strings = (
+      'SnippetText'
+    )
+    ReadOnly = True
+    ScrollBars = ssAutoVertical
+    TabOrder = 0
+  end
+end
