@@ -1,0 +1,170 @@
+object SimsData: TSimsData
+  OnCreate = DataModuleCreate
+  OldCreateOrder = False
+  Height = 227
+  HorizontalOffset = 1068
+  VerticalOffset = 135
+  Width = 227
+  object SimDBF: TDbf
+    DateTimeHandling = dtDateTime
+    FilePath = 'data/'
+    IndexDefs = <    
+      item
+        IndexFile = 'SIMID'
+        SortField = 'ID'
+        Options = [ixPrimary, ixUnique]
+      end    
+      item
+        IndexFile = 'SIMNAME'
+        SortField = 'NAME'
+        Options = [ixCaseInsensitive]
+      end    
+      item
+        IndexFile = 'SIMGENDER'
+        SortField = 'GENDER'
+        Options = [ixCaseInsensitive]
+      end    
+      item
+        IndexFile = 'SIMAGE'
+        SortField = 'STAGE'
+        Options = []
+      end    
+      item
+        IndexFile = 'SIMZODIAC'
+        SortField = 'SIGN'
+        Options = []
+      end>
+    OpenMode = omAutoCreate
+    StoreDefs = True
+    TableName = 'sims.dbf'
+    TableLevel = 7
+    Active = True
+    FieldDefs = <    
+      item
+        Name = 'ID'
+        DataType = ftAutoInc
+      end    
+      item
+        Name = 'NAME'
+        DataType = ftString
+        Size = 40
+      end    
+      item
+        Name = 'GENDER'
+        DataType = ftString
+        Size = 20
+      end    
+      item
+        Name = 'BIO'
+        DataType = ftMemo
+      end    
+      item
+        Name = 'STAGE'
+        DataType = ftInteger
+      end    
+      item
+        Name = 'SIGN'
+        DataType = ftInteger
+      end    
+      item
+        Name = 'CAREER'
+        DataType = ftString
+        Size = 20
+      end    
+      item
+        Name = 'JOB'
+        DataType = ftString
+        Size = 20
+      end    
+      item
+        Name = 'PERFORMANCE'
+        DataType = ftInteger
+      end    
+      item
+        Name = 'SALARY'
+        DataType = ftInteger
+      end    
+      item
+        Name = 'NEAT'
+        DataType = ftInteger
+      end    
+      item
+        Name = 'OUTGOING'
+        DataType = ftInteger
+      end    
+      item
+        Name = 'ACTIVE'
+        DataType = ftInteger
+      end    
+      item
+        Name = 'PLAYFUL'
+        DataType = ftInteger
+      end    
+      item
+        Name = 'NICE'
+        DataType = ftInteger
+      end    
+      item
+        Name = 'COOKING'
+        DataType = ftInteger
+      end    
+      item
+        Name = 'MECHANICAL'
+        DataType = ftInteger
+      end    
+      item
+        Name = 'CHARISMA'
+        DataType = ftInteger
+      end    
+      item
+        Name = 'BODY'
+        DataType = ftInteger
+      end    
+      item
+        Name = 'LOGIC'
+        DataType = ftInteger
+      end    
+      item
+        Name = 'CREATIVITY'
+        DataType = ftInteger
+      end>
+    FilterOptions = []
+    Left = 24
+    Top = 16
+  end
+  object SimDS: TDataSource
+    DataSet = SimDBF
+    Left = 24
+    Top = 80
+  end
+  object StagesDBF: TDbf
+    FilePath = 'data/'
+    IndexDefs = <>
+    OpenMode = omTemporary
+    TableName = 'stages.dbf'
+    TableLevel = 7
+    FilterOptions = []
+    Left = 88
+    Top = 16
+  end
+  object StagesDS: TDataSource
+    DataSet = StagesDBF
+    Left = 88
+    Top = 80
+  end
+  object ZodiacDBF: TDbf
+    FilePath = 'data/'
+    IndexDefs = <>
+    OpenMode = omTemporary
+    TableName = 'zodiac.dbf'
+    TableLevel = 7
+    FilterOptions = []
+    Left = 168
+    Top = 16
+  end
+  object ZodiacDS: TDataSource
+    DataSet = ZodiacDBF
+    Left = 171
+    Top = 80
+  end
+end
