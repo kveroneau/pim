@@ -1,0 +1,104 @@
+
+/* Style sheet for The Sims pages*/
+
+a:visited        	{color: 113399}
+a:hover			{color: 113399}
+a:active		{color: 113399}
+a:link          	{color: 113399}
+
+P			{color: #000000}
+
+BODY			{
+	font-family: "Arial", "Helvetica", sans-serif;
+	font-weight: normal;
+	font-size: 10pt;
+	background: #FFFFFF;
+}
+
+.BlueTitleText          {color: 113399;
+			font-family: "Arial", "Helvetica", sans-serif;
+			font-weight: bold;
+			font-size: 12pt;
+                        }
+
+.BlueHeadingText          {color: 113399;
+			font-family: "Arial", "Helvetica", sans-serif;
+			font-weight: bold;
+			font-size: 12pt;
+                        }
+
+.AddressText		{font-family: "Arial", "Helvetica", sans-serif;
+			font-weight: normal;
+			font-size: 12pt;
+                        color: #000000
+			}
+
+.BlueBackBox            {background: #3766B4;
+			border-width:   0;
+                        color: #ffffff;
+			font-family: "Arial", "Helvetica", sans-serif;
+			font-weight: bold;
+			font-size: 10pt;
+			}
+
+.PhotoBox               {background: #E7E7EF;
+                        layer-background-color: #E7E7EF;
+			border-width:   0;
+                        color: #5E56E7;
+			font-weight: normal;
+			font-size: 10pt;
+			}
+
+.PhotoBorder           {background: #E7E7EF;
+                        layer-background-color: #E7E7EF;
+			border-width:   5;
+                        border-color: #E7E7EF;
+                        border-style: solid;
+                        color: #5E56E7;
+			font-weight: normal;
+			font-size: 10pt;
+			}
+
+.PhotoCaption           {background: #E7E7EF;
+                        layer-background-color: #E7E7EF;
+			border-width:   0;
+                        font-family: "Arial", "Helvetica", sans-serif;
+                        color: #5E56E7;
+			font-weight: bold;
+			font-size: 12pt;
+			}
+
+.PhotoBoxShadow         {background: #B8A058;
+                        layer-background-color: #B8A058;
+			border-width:   0;
+                        color: #000000;
+			font-weight: normal;
+			font-size: 10pt;
+			}
+
+
+.ScrapBookText		{font-family: "Arial", "Helvetica", sans-serif;
+			font-weight: normal;
+			font-size: 10pt;
+			background: #E7E7EF;
+                        layer-background-color: #E7E7EF;
+                        color: #000000
+			}
+
+.BoldWhiteText          {color: #ffffff;
+			font-family: "Arial", "Helvetica", sans-serif;
+			font-weight: bold;
+			font-size: 10pt;
+                        }
+
+.RedText                {color: #B3203E;
+			font-family: "Arial", "Helvetica", sans-serif;
+			font-weight: normal;
+			font-size: 10pt;
+                        }
+
+.PageText		{font-family: "Arial", "Helvetica", sans-serif;
+			font-weight: normal;
+			font-size: 10pt;
+                        color: #000000
+			}

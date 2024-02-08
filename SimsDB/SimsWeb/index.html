@@ -1,0 +1,561 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>The Veroneau Family Home Page</title>
+  <link rel="stylesheet" href="s/thesims.css" type="text/css"/>
+  <link rel="stylesheet" href="s/familyhome.css" type="text/css"/>
+  <script src="SimsDB.js"></script>
+</head>
+<body onload="rtl.run();">
+  <!-- NavBar -->
+  <div id="NavBar" style="position:absolute; left:0px; top:0px; width:150px; height:600px;" hidden="">
+    <TABLE BORDER=0 WIDTH=150 CELLPADDING=0 CELLSPACING=0>
+	<TR><TD><IMG VSPACE=0 HSPACE=0 HEIGHT=110  WIDTH=125 BORDER=0 ALIGN=middle SRC="s/logo.jpg"></TD></TR>
+	<TR><TD><a id="FamilyLink" href="#/Family/1">
+		<IMG SRC="s/family_a.jpg" VSPACE=0 HSPACE=0 HEIGHT=77  WIDTH=125 BORDER=0 ALIGN=left NAME="family"></a></TD></TR>
+	<TR><TD><a id="LotLink" href="#/Family/Lot">
+		<IMG SRC="s/house_a.jpg" VSPACE=0 HSPACE=0 HEIGHT=77  WIDTH=125 BORDER=0 ALIGN=left NAME="house"></a></TD></TR>
+	<TR><TD><a href="#/Scrapbook/1">
+		<IMG SRC="s/photo_a.jpg" VSPACE=0 HSPACE=0 HEIGHT=77  WIDTH=125 BORDER=0 ALIGN=left NAME="photo"></a></TD></TR>
+    </TABLE>
+  </div>
+
+  <!-- NavBarNoHouse -->
+  <div id="NavBarNoHouse" style="position:absolute; left:0px; top:0px; width:150px; height:600px;" hidden="">
+    <TABLE BORDER=0 WIDTH=150 CELLPADDING=0 CELLSPACING=0>
+	<TR><TD><IMG VSPACE=0 HSPACE=0 HEIGHT=110  WIDTH=125 BORDER=0 ALIGN=middle SRC="s/logo.jpg"></TD></TR>
+	<TR><TD><a href="#/familyhome">
+		<IMG SRC="s/family_a.jpg" VSPACE=0 HSPACE=0 HEIGHT=77  WIDTH=125 BORDER=0 ALIGN=left NAME="family"></a></TD></TR>
+	<TR><TD><a href="#/scrapbook">
+		<IMG SRC="s/photo_a.jpg" VSPACE=0 HSPACE=0 HEIGHT=77  WIDTH=125 BORDER=0 ALIGN=left NAME="photo"></a></TD></TR>
+    </TABLE>
+  </div>
+
+  <!-- CenterBox -->
+  <div id='CenterBox' style='position:absolute; left:125px; top:0px; width:571px; height:425px' hidden="">
+	<TABLE BORDER=0 WIDTH=571 CELLPADDING=0 CELLSPACING=0>
+		<TR><TD><IMG id="TitleImage" VSPACE=0 HSPACE=0 HEIGHT=39 WIDTH=570 BORDER=0 ALIGN=middle SRC="s/familyhomepagetxt.jpg"><img src="s/border39.gif" VSPACE=0 HSPACE=0 ALIGN=middle width="1" height="39" border="0"></TD></TR>
+	</TABLE>
+
+	<TABLE BORDER=0 WIDTH=571 CELLPADDING=0 CELLSPACING=0>
+		<TR>
+			<TD BGCOLOR=#EEEEDD><IMG SRC="s/border.gif" VSPACE=0 HSPACE=0 HEIGHT=570  WIDTH=1 BORDER=0 ALIGN=left ></TD>
+			<TD BGCOLOR=#EEEEDD WIDTH=571><br></TD>
+			<TD BGCOLOR=#EEEEDD><IMG SRC="s/border.gif" VSPACE=0 HSPACE=0 HEIGHT=570  WIDTH=1 BORDER=0 ALIGN=right ></TD>
+		</TR>
+	</TABLE>
+
+	<TABLE BORDER=0 WIDTH=571 CELLPADDING=0 CELLSPACING=0>
+		<TR><TD><IMG VSPACE=0 HSPACE=0 HEIGHT=1 WIDTH=571 BORDER=0 SRC="s/border.gif" ALIGN=top></TD></TR>
+	</TABLE>
+  </div>
+
+  <!-- PersonalStatsBox -->
+  <div id='PersonalStatsBox' style='position:absolute; left:510px; top:0px; width:175px; height:425px' hidden="">
+	<TABLE BORDER=0 WIDTH=175 CELLPADDING=0 CELLSPACING=0>
+		<TR><TD><IMG VSPACE=0 HSPACE=0 HEIGHT=39 WIDTH=174 BORDER=0 ALIGN=middle SRC="s/personalstatstxt.jpg"><img src="s/border39.gif" VSPACE=0 HSPACE=0 ALIGN=middle width="1" height="39" border="0"></TD></TR>
+	</TABLE>
+
+	<TABLE BORDER=0 WIDTH=175 CELLPADDING=0 CELLSPACING=0>
+		<TR>
+			<TD BGCOLOR=#EEEEDD><IMG SRC="s/border.gif" VSPACE=0 HSPACE=0 HEIGHT=550  WIDTH=1 BORDER=0 ALIGN=left ></TD>
+			<TD BGCOLOR=#EEEEDD WIDTH=175><br></TD>
+			<TD BGCOLOR=#EEEEDD><IMG SRC="s/border.gif" VSPACE=0 HSPACE=0 HEIGHT=550  WIDTH=1 BORDER=0 ALIGN=right ></TD>
+		</TR>
+	</TABLE>
+
+	<TABLE BORDER=0 WIDTH=175 CELLPADDING=0 CELLSPACING=0>
+		<TR><TD><IMG VSPACE=0 HSPACE=0 HEIGHT=1 WIDTH=175 BORDER=0 SRC="s/border.gif" ALIGN=top></TD></TR>
+	</TABLE>
+  </div>
+
+  <!-- TitleText -->
+  <div id="TitleText" style="position:absolute; overflow:hidden; left:125px; top:50px; width:365px; height:20px;" hidden="">
+    <span class=BlueHeadingText id="SimName"><center>SimName</center></span>
+  </div>
+
+  <!-- SimView -->
+  <div id="SimView" style="position:absolute; left:351px; top:100px; width:110px; height:230px;" hidden="">
+    <TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0 BGCOLOR=#E7E7EF>
+	<TR HEIGHT=5px><TD HEIGHT=5px></TD><TD></TD><TD></TD></TR>
+	<TR><TD WIDTH=5></TD><TD><img id="SimPhoto" src="FamilyGFX/family1_full.jpg" width="100" height="220"></TD><TD WIDTH=5></TD></TR>
+	<TR HEIGHT=5px><TD HEIGHT=5px></TD><TD></TD><TD></TD></TR>
+	<TR HEIGHT=3px BGCOLOR=#B8A058><TD HEIGHT=3px BGCOLOR=#B8A058></TD><TD BGCOLOR=#B8A058></TD><TD BGCOLOR=#B8A058></TD></TR>
+    </TABLE>
+  </div>
+
+  <!-- BioView -->
+  <div id="BioView" style="position:absolute; left:160px; top:100px; width:176px; height:185px; z-index:9; overflow: visible" hidden="">
+    <table width="170" border="0" height="42%">
+      <tr nowrap bordercolor="#FFE77B">
+        <td width="60%" height="0"><span class=BlueHeadingText>Bio</span></td>
+        <td width="40%" height="0">&nbsp;</td>
+      </tr>
+      <tr nowrap bordercolor="#FFE77B">
+        <td width="60%" height="0"><span class=PageText>Gender:</span></td>
+        <td width="40%" height="0"><span class=RedText id="SimGender">Male</span></td>
+      </tr>
+      <tr nowrap bordercolor="#FFE77B">
+        <td width="60%" height="0"><span class=PageText>Life Stage:</span></td>
+      <td width="40%" height="0"><span class=RedText id="SimAge">Adult</span></td>
+      </tr>
+      <tr nowrap bordercolor="#FFE77B">
+        <td width="60%" height="0"><span class=PageText>Astrological Sign:</span></td>
+        <td width="40%" height="0"><span class=RedText id="SimSign">Taurus</span></td>
+      </tr>
+      <tr nowrap bordercolor="#FFE77B">
+        <td width="60%" height="0"><span class=PageText>Career Path:</span></td>
+        <td width="40%" height="0"><span class=RedText id="SimCareer">Politics</span></td>
+      </tr>
+      <tr nowrap bordercolor="#FFE77B">
+        <td width="60%" height="0"><span class=PageText>Current Job:</span></td>
+        <td width="40%" height="0"><span class=RedText id="SimJob">Campaign Worker</span></td>
+      </tr>
+      <tr nowrap bordercolor="#FFE77B">
+        <td width="60%" height="0"><span class=PageText>Job Performance:</span></td>
+        <td width="40%" height="0"><span class=RedText id="SimJobPerform">11</span></td>
+      </tr>
+      <tr nowrap bordercolor="#FFE77B">
+        <td width="60%" height="0"><span class=PageText>Current Salary:</span></td>
+        <td width="40%" height="0"><span class=RedText id="SimSalary">220</span></td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- StatsView -->
+  <div id="StatsView" style="position:absolute; left:543px; top:100px; width:160px; height:120px; z-index:12" hidden="">
+    <table width="150" border="0" height="48%">
+      <tr>
+        <td width="69%" height="0"><span class=BlueHeadingText>Personality</span></td>
+        <td width="31%" height="0">&nbsp;</td>
+      </tr>
+      <tr>
+        <td width="69%" height="0"><span class=PageText>Neat:</span></td>
+        <td width="31%" height="0"><span class=RedText id="SimNeat">5</span></td>
+      </tr>
+      <tr>
+        <td width="69%" height="0"><span class=PageText>Outgoing:</span></td>
+        <td width="31%" height="0"><span class=RedText id="SimOutgoing">5</span></td>
+      </tr>
+      <tr>
+        <td width="69%" height="0"><span class=PageText>Active:</span></td>
+        <td width="31%" height="0"><span class=RedText id="SimActive">3</span></td>
+      </tr>
+      <tr>
+        <td width="69%" height="0"><span class=PageText>Playful:</span></td>
+        <td width="31%" height="0"><span class=RedText id="SimPlayful">8</span></td>
+      </tr>
+      <tr>
+        <td width="69%" height="0"><span class=PageText>Nice:</span></td>
+        <td width="31%" height="0"><span class=RedText id="SimNice">4</span></td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- SkillsView -->
+  <div id="SkillsView" style="position:absolute; left:543px; top:250px; width:160px; height:152px; z-index:17" hidden="">
+    <table width="155" border="0" height="48%">
+      <tr>
+        <td width="66%" height="0"><span class=BlueHeadingText>Skills</span></td>
+        <td width="34%" height="0">&nbsp;</td>
+      </tr>
+      <tr>
+        <td width="66%" height="0"><span class=PageText>Cooking:</span></td>
+      <td width="34%" height="0"><span class=RedText id="SimCooking">0</span></td>
+      </tr>
+      <tr>
+        <td width="66%" height="0"><span class=PageText>Mechanical:</span></td>
+        <td width="34%" height="0"><span class=RedText id="SimMechanical">0</span></td>
+      </tr>
+      <tr>
+        <td width="66%" height="0"><span class=PageText>Charisma:</span></td>
+        <td width="34%" height="0"><span class=RedText id="SimCharisma">0</span></td>
+      </tr>
+      <tr>
+        <td width="66%" height="0"><span class=PageText>Body:</span></td>
+        <td width="34%" height="0"><span class=RedText id="SimBody">0</span></td>
+      </tr>
+      <tr>
+        <td width="66%" height="0"><span class=PageText>Logic:</span></td>
+        <td width="34%" height="0"><span class=RedText id="SimLogic">0</span></td>
+      </tr>
+      <tr>
+        <td width="66%" height="0"><span class=PageText>Creativity:</span></td>
+        <td width="34%" height="0"><span class=RedText id="SimCreativity">0</span></td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- Description -->
+  <div id='Description' style='position:absolute; overflow:hidden; left:160px; top:340px; width:301px; height:250px;' hidden="">
+    <span class=PageText id="SimBio">Description Text</span>
+  </div>
+
+  <!-- MembersBox -->
+  <div id='MembersBox' style='position:absolute; left:510px; top:0px; width:175px; height:425px' hidden="">
+	<TABLE BORDER=0 WIDTH=175 CELLPADDING=0 CELLSPACING=0>
+		<TR><TD><IMG VSPACE=0 HSPACE=0 HEIGHT=39 WIDTH=174 BORDER=0 ALIGN=middle SRC="s/familymemberstxt.jpg"><img src="s/border39.gif" VSPACE=0 HSPACE=0 ALIGN=middle width="1" height="39" border="0"></TD></TR>
+	</TABLE>
+
+	<TABLE id="MembersTable" BORDER=0 WIDTH=175 CELLPADDING=0 CELLSPACING=0>
+		<TR>
+		<TD BGCOLOR=#EEEEDD><IMG SRC="s/border.gif" VSPACE=0 HSPACE=0 HEIGHT=50  WIDTH=1 BORDER=0 ALIGN=left ></TD>
+		<TD BGCOLOR=#EEEEDD WIDTH=175><br></TD>
+		<TD BGCOLOR=#EEEEDD><IMG SRC="s/border.gif" VSPACE=0 HSPACE=0 HEIGHT=50  WIDTH=1 BORDER=0 ALIGN=right ></TD>
+		</TR>
+	</TABLE>
+
+	<TABLE BORDER=0 WIDTH=175 CELLPADDING=0 CELLSPACING=0>
+		<TR><TD><IMG VSPACE=0 HSPACE=0 HEIGHT=1 WIDTH=175 BORDER=0 SRC="s/border.gif" ALIGN=top></TD></TR>
+	</TABLE>
+  </div>
+
+  <!-- LinksBar -->
+  <div id='LinksBar' style="position:absolute; left:125px; top:920px; width:571px; height:20px; z-index:40;" hidden="">
+    <span class=PageText><center><A HREF="http://thesims.com">TheSims.com</A> | <A id="#/familyhome">Family Home Page</A> |
+    <A href="#/scrapbook">Family Photo Album</A></center></span>
+  </div>
+
+  <!-- TitleText -->
+  <div id="FamilyText" style="position:absolute; overflow:hidden; left:125px; top:40px; width:365px; height:20px;" hidden="">
+    <span class=BlueHeadingText id="FamilyName"><center>Veroneau</center></span>
+  </div>
+
+  <!-- Floor Navigation -->
+  <div id="FloorNav3" style="position:absolute; left:605px; top:125px; width:88px; height:35px; z-index:29" hidden="">
+    <a href="#" id="Level3Btn">
+    <IMG SRC="s/houseroofon.jpg" NAME="hslevels3" BORDER=0 VSPACE=0 ALIGN=top></a>
+  </div>
+
+  <div id="FloorNav2" style="position:absolute; left:605px; top:160px; width:88px; height:23px; z-index:30" hidden="">
+    <a href="#" id="Level2Btn">
+    <IMG SRC='s/housefloor2off.jpg' NAME='hslevels2' BORDER=0 VSPACE=0 ALIGN=top></a>
+  </div>
+
+  <div id="FloorNav1" style="position:absolute; left:605px; top:183px; width:88px; height:23px; z-index:31" hidden="">
+    <a href="#" id="Level1Btn">
+    <IMG SRC="s/housefloor1off.jpg" NAME="hslevels1" BORDER=0 VSPACE=0 ALIGN=top></a>
+  </div>
+
+  <!-- Floor Caption -->
+  <div id="FloorCaption" style="position:absolute; left:152px; top:430px; width:442px; height:24px;" class=PhotoCaption hidden="">
+    <table width=442 height=3 cellpadding=0 cellspacing=0><tr><td valign=middle align=center>
+    <span class=PhotoCaption id="FloorText">Number 1 Sim Lane: First Floor Interior</span>
+  </td></tr></table></div>
+
+  <!-- FloorShadow -->
+  <div id="FloorShadow" style="position:absolute; left:152px; top:454px; width:442px; height:3px;" class=PhotoBoxShadow hidden="">
+    <table width=442 height=3 cellpadding=0 cellspacing=0><tr><td valign=middle align=center>
+  </td></tr></table></div>
+
+  <!-- TheHouse -->
+  <div id="TheHouse" style="position:absolute; left:152px; top:127px; width:442px; height:298px;" class=PhotoBox hidden="">
+    <table height=298 width=442 border=0 cellpadding=0 cellspacing=0>
+    <tr><td align=center valign=middle>
+    <span class=PhotoBox><img src="FamilyGFX/house-exterior.jpg" id="HouseImage"></span>
+  </td></tr></table></div>
+
+  <div id="HouseShadow" style="position:absolute; left:152px; top:425px; width:442px; height:3px;" class=PhotoBoxShadow hidden="">
+    <table width=442 height=3 cellpadding=0 cellspacing=0><tr><td valign=middle align=center>
+  </td></tr></table></div>
+
+  <!-- HouseInfoView -->
+  <div id="HouseInfoView" style="position:absolute; left:152px; top:457px; width:212px; height:136px; z-index:24" hidden="">
+    <table width="210" border="0" height="150">
+      <tr>
+        <td width="77%" height="26"><span class=BlueHeadingText>Information</span></td>
+        <td width="23%" height="26">&nbsp;</td>
+      </tr>
+      <tr>
+        <td width="77%" height="0"><span class=PageText>Value:</span></td>
+        <td width="23%" height="0"><span class=RedText id="HouseValue">18599</span></td>
+      </tr>
+      <tr>
+        <td width="77%" height="0"><span class=PageText>Square Feet:</span></td>
+        <td width="23%" height="0"><span class=RedText id="HouseSize">1746</span></td>
+      </tr>
+      <tr>
+        <td width="77%" height="0"><span class=PageText>Number of Floors:</span></td>
+        <td width="23%" height="0"><span class=RedText id="HouseFloors">2</span></td>
+      </tr>
+      <tr>
+        <td width="77%" height="0"><span class=PageText>Number of Bathrooms:</span></td>
+        <td width="23%" height="0"><span class=RedText id="HouseBaths">1</span></td>
+      </tr>
+      <tr>
+        <td width="77%" height="23"><span class=PageText>Number of Bedrooms:</span></td>
+        <td width="23%" height="23"><span class=RedText id="HouseBeds">1</span></td>
+      </tr>
+    </table>
+    <p>&nbsp; </p>
+  </div>
+
+  <!-- HouseStatsView -->
+  <div id="HouseStatsView" style="position:absolute; left:384px; top:457px; width:228px; height:172px; z-index:25" hidden="">
+    <table width="210" border="0" height="150">
+      <tr>
+        <td width="76%" height="25"><span class=BlueHeadingText>Statistics</span></td>
+        <td width="24%" height="25">&nbsp;</td>
+      </tr>
+      <tr>
+        <td width="76%" height="25"><span class=PageText>Size:</span></td>
+        <td width="24%" height="25"><span class=RedText id="StatSize">100</span></td>
+      </tr>
+      <tr>
+        <td width="76%" height="0"><span class=PageText>Furnishings:</span></td>
+        <td width="24%" height="0"><span class=RedText id="StatFurnish">53</span></td>
+      </tr>
+      <tr>
+        <td width="76%" height="0"><span class=PageText>Yard:</span></td>
+        <td width="24%" height="0"><span class=RedText id="StatYard">44</span></td>
+      </tr>
+      <tr>
+        <td width="76%" height="0"><span class=PageText>Upkeep:</span></td>
+        <td width="24%" height="0"><span class=RedText id="StatUpKeep">84</span></td>
+      </tr>
+      <tr>
+        <td width="76%" height="23"><span class=PageText>Layout:</span></td>
+        <td width="24%" height="23"><span class=RedText id="StatLayout">57</span></td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- HouseThumb -->
+  <div id="HouseThumb" style="position:absolute; left:150px; top:86px; width:342px; height:220px;" hidden="">
+    <center>
+      <TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0 class=PhotoBox><TR HEIGHT=5px><TD HEIGHT=5px></TD><TD></TD><TD></TD></TR><TR><TD WIDTH=5px></TD><TD>
+      <img id="HousePhoto" src="FamilyGFX/house-thumb.jpg">
+      </TD><TD WIDTH=5px></TD></TR><TR HEIGHT=5px><TD HEIGHT=5px></TD><TD></TD><TD></TD></TR>
+      <TR HEIGHT=3px class=PhotoBoxShadow><TD HEIGHT=3px class=PhotoBoxShadow></TD><TD class=PhotoBoxShadow></TD><TD class=PhotoBoxShadow></TD></TR></TABLE>
+    </center>
+  </div>
+
+  <!-- HouseCaption -->
+  <div id="HouseCaption" style="position:absolute; left:200px; top:315px; width:254px; height:24px;" hidden="" class=PhotoCaption>
+    <table height=24 width=254 border=0 cellpadding=0 cellspacing=0>
+      <tr><td align=center valign=middle>
+        <span class=PhotoCaption>Number 1 Sim Lane:</span>
+      </td></tr>
+    </table>
+  </div>
+
+  <!-- HouseCaptionShadow -->
+  <div id="HouseCaptionShadow" style="position:absolute; left:200px; top:339px; width:254px; height:3px;" hidden="" class=PhotoBoxShadow>
+    <table width=254 height=3 cellpadding=0 cellspacing=0><tr><td valign=middle align=center>
+  </td></tr></table></div>
+
+  <!-- HouseIconLayer -->
+  <div id="HouseIconLayer" style="position:absolute; left:150px; top:86px; width:342; height:220px;" hidden="">
+    <center>
+      <TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0 class=PhotoBox><TR HEIGHT=5px><TD HEIGHT=5px></TD><TD></TD><TD></TD></TR><TR><TD WIDTH=5></TD><TD>
+        <img src = "s/nh1.jpg">
+      </TD><TD WIDTH=5></TD></TR><TR HEIGHT=5px><TD HEIGHT=5px></TD><TD></TD><TD></TD></TR>
+        <TR HEIGHT=3px class=PhotoBoxShadow><TD HEIGHT=3px class=PhotoBoxShadow></TD><TD class=PhotoBoxShadow></TD><TD class=PhotoBoxShadow></TD></TR></TABLE>
+    </center>
+  </div>
+
+  <!-- SeeHouseLink -->
+  <div id='SeeHouseLink' style='position:absolute; left:150px; top:348px; width:342; height:19px;' hidden="">
+    <center><a href="#" id="SeeHouseLnk"><span class=PageText>See the house.</span></a></center>
+  </div>
+
+  <!-- SeeNeighborhoodLink -->
+  <div id='SeeNeighborhoodLink' style='position:absolute; left:150px; top:348px; width:342; height:19px;' hidden="">
+    <center><a href="#" id="SeeNeighborhoodLnk"><span class=PageText>See the neighborhood.</span></a></center>
+  </div>
+
+  <!-- FamilyStats -->
+  <div id="FamilyStats" style="position:absolute; left:208px; top:375px; width:200px; height:96px;" hidden="">
+    <table width=200 border="0" height=96>
+      <tr>
+        <td width="80%" height="20"><span class=PageText>Cash Balance:</span></td>
+        <td width="20%" height="20"><span class=RedText id="CashBalance">1400</span></td>
+      </tr>
+      <tr>
+        <td width="80%" height="0"><span class=PageText>Days in Existence:</span></td>
+        <td width="20%" height="0"><span class=RedText id="Days">26</span></td>
+      </tr>
+      <tr>
+        <td width="80%" height="20"><span class=PageText>Number of Family Members:</span></td>
+        <td width="20%" height="20"><span class=RedText id="Members">1</span></td>
+      </tr>
+      <tr>
+        <td width="80%" height="22"><span class=PageText>Number of Family Friends:</span></td>
+        <td width="20%" height="22"><span class=RedText id="Friends">1</span></td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- Family Member Section -->
+
+  <div id='FamilyMember1' style='position:absolute; left:570px; top:86px; width:55px; height:55px;' hidden="" class=PhotoBox>
+    <table width=55 height=55 cellpadding=0 cellspacing=0><tr><td valign=middle align=center>
+    <SPACER TYPE=horizontal size=2>
+    <a href="#/familymember/1" id="Member1Link1"><img id="MemberFace1" src="FamilyGFX/family1_face.jpg" width=45 height=45 border=0></a>
+  </td></tr></table></div>
+
+  <div id='FamilyMemberShadow1' style='position:absolute; left:570px; top:141px; width:55px; height:3px;' hidden="" class=PhotoBoxShadow>
+    <table width=55 height=3 cellpadding=0 cellspacing=0><tr><td valign=middle align=center>
+  </td></tr></table></div>
+
+  <div id="FamilyMemberName1" style='position:absolute; overflow:hidden; left:510px; top:146px; width:175px; height:55px' hidden="">
+    <a href="#/familymember/1" id="Member1Link2"><span class=PageText id="MemberName1"><center>Kevin</center></span></a>
+  </div>
+
+  <div id='FamilyMember2' style='position:absolute; left:570px; top:186px; width:55px; height:55px;' hidden="" class=PhotoBox>
+    <table width=55 height=55 cellpadding=0 cellspacing=0><tr><td valign=middle align=center>
+    <SPACER TYPE=horizontal size=2>
+    <a href="#/familymember/2" id="Member2Link1"><img id="MemberFace2" src=FamilyGFX/family2_face.jpg width=45 height=45 border=0></a>
+  </td></tr></table></div>
+
+  <div id='FamilyMemberShadow2' style='position:absolute; left:570px; top:241px; width:55px; height:3px;' hidden="" class=PhotoBoxShadow>
+    <table width=55 height=3 cellpadding=0 cellspacing=0><tr><td valign=middle align=center>
+  </td></tr></table></div>
+
+  <div id="FamilyMemberName2" style='position:absolute; overflow:hidden; left:510px; top:246px; width:175px; height:55px' hidden="">
+    <a href="#/familymember/2" id="Member2Link2"><span class=PageText id="MemberName2"><center>Rose</center></span></a>
+  </div>
+
+  <div id='FamilyMember3' style='position:absolute; left:570px; top:286px; width:55px; height:55px;' hidden="" class=PhotoBox>
+    <table width=55 height=55 cellpadding=0 cellspacing=0><tr><td valign=middle align=center>
+    <SPACER TYPE=horizontal size=2>
+    <a href="#/familymember/3" id="Member3Link1"><img id="MemberFace3" src=FamilyGFX/family3_face.jpg width=45 height=45 border=0></a>
+  </td></tr></table></div>
+
+  <div id='FamilyMemberShadow3' style='position:absolute; left:570px; top:341px; width:55px; height:3px;' hidden="" class=PhotoBoxShadow>
+    <table width=55 height=3 cellpadding=0 cellspacing=0><tr><td valign=middle align=center>
+  </td></tr></table></div>
+
+  <div id="FamilyMemberName3" style='position:absolute; overflow:hidden; left:510px; top:346px; width:175px; height:55px' hidden="">
+    <a href="#/familymember/3" id="Member3Link2"><span class=PageText id="MemberName3"><center>Dorothy</center></span></a>
+  </div>
+
+  <div id='FamilyMember4' style='position:absolute; left:570px; top:386px; width:55px; height:55px;' hidden="" class=PhotoBox>
+    <table width=55 height=55 cellpadding=0 cellspacing=0><tr><td valign=middle align=center>
+    <SPACER TYPE=horizontal size=2>
+    <a href="#/familymember/4" id="Member4Link1"><img id="MemberFace4" src=FamilyGFX/family4_face.jpg width=45 height=45 border=0></a>
+  </td></tr></table></div>
+
+  <div id='FamilyMemberShadow4' style='position:absolute; left:570px; top:441px; width:55px; height:3px;' hidden="" class=PhotoBoxShadow>
+    <table width=55 height=3 cellpadding=0 cellspacing=0><tr><td valign=middle align=center>
+  </td></tr></table></div>
+
+  <div id="FamilyMemberName4" style='position:absolute; overflow:hidden; left:510px; top:446px; width:175px; height:55px' hidden="">
+    <a href="#/familymember/4" id="Member4Link2"><span class=PageText id="MemberName4"><center>Sophia</center></span></a>
+  </div>
+
+  <div id='FamilyMember5' style='position:absolute; left:570px; top:486px; width:55px; height:55px;' hidden="" class=PhotoBox>
+    <table width=55 height=55 cellpadding=0 cellspacing=0><tr><td valign=middle align=center>
+    <SPACER TYPE=horizontal size=2>
+    <a href="#/familymember/5" id="Member5Link1"><img id="MemberFace5" src=FamilyGFX/family5_face.jpg width=45 height=45 border=0></a>
+  </td></tr></table></div>
+
+  <div id='FamilyMemberShadow5' style='position:absolute; left:570px; top:541px; width:55px; height:3px;' hidden="" class=PhotoBoxShadow>
+    <table width=55 height=3 cellpadding=0 cellspacing=0><tr><td valign=middle align=center>
+  </td></tr></table></div>
+
+  <div id="FamilyMemberName5" style='position:absolute; overflow:hidden; left:510px; top:546px; width:175px; height:55px' hidden="">
+    <a href="#/familymember/5" id="Member5Link2"><span class=PageText id="MemberName5"><center></center></span></a>
+  </div>
+
+  <div id='FamilyMember6' style='position:absolute; left:570px; top:586px; width:55px; height:55px;' hidden="" class=PhotoBox>
+    <table width=55 height=55 cellpadding=0 cellspacing=0><tr><td valign=middle align=center>
+    <SPACER TYPE=horizontal size=2>
+    <a href="#/familymember/6" id="Member6Link1"><img id="MemberFace6" src=FamilyGFX/family6_face.jpg width=45 height=45 border=0></a>
+  </td></tr></table></div>
+
+  <div id='FamilyMemberShadow6' style='position:absolute; left:570px; top:641px; width:55px; height:3px;' hidden="" class=PhotoBoxShadow>
+    <table width=55 height=3 cellpadding=0 cellspacing=0><tr><td valign=middle align=center>
+  </td></tr></table></div>
+
+  <div id="FamilyMemberName6" style='position:absolute; overflow:hidden; left:510px; top:646px; width:175px; height:55px' hidden="">
+    <a href="#/familymember/6" id="Member6Link2"><span class=PageText id="MemberName6"><center></center></span></a>
+  </div>
+
+  <div id='FamilyMember7' style='position:absolute; left:570px; top:686px; width:55px; height:55px;' hidden="" class=PhotoBox>
+    <table width=55 height=55 cellpadding=0 cellspacing=0><tr><td valign=middle align=center>
+    <SPACER TYPE=horizontal size=2>
+    <a href="#/familymember/7" id="Member7Link1"><img id="MemberFace7" src=FamilyGFX/family7_face.jpg width=45 height=45 border=0></a>
+  </td></tr></table></div>
+
+  <div id='FamilyMemberShadow7' style='position:absolute; left:570px; top:741px; width:55px; height:3px;' hidden="" class=PhotoBoxShadow>
+    <table width=55 height=3 cellpadding=0 cellspacing=0><tr><td valign=middle align=center>
+  </td></tr></table></div>
+
+  <div id="FamilyMemberName7" style='position:absolute; overflow:hidden; left:510px; top:746px; width:175px; height:55px' hidden="">
+    <a href="#/familymember/7" id="Member7Link2"><span class=PageText id="MemberName7"><center></center></span></a>
+  </div>
+
+  <div id='FamilyMember8' style='position:absolute; left:570px; top:786px; width:55px; height:55px;' hidden="" class=PhotoBox>
+    <table width=55 height=55 cellpadding=0 cellspacing=0><tr><td valign=middle align=center>
+    <SPACER TYPE=horizontal size=2>
+    <a href="#/familymember/8" id="Member8Link1"><img id="MemberFace8" src=FamilyGFX/family8_face.jpg width=45 height=45 border=0></a>
+  </td></tr></table></div>
+
+  <div id='FamilyMemberShadow8' style='position:absolute; left:570px; top:841px; width:55px; height:3px;visibility:hidden;' visibility='hide' class=PhotoBoxShadow>
+    <table width=55 height=3 cellpadding=0 cellspacing=0><tr><td valign=middle align=center>
+  </td></tr></table></div>
+
+  <div id="FamilyMemberName8" style='position:absolute; overflow:hidden; left:510px; top:846px; width:175px; height:55px'>
+    <a href="#/familymember/8" id="Member8Link2"><span class=PageText id="MemberName8"><center></center></span></a>
+  </div>
+
+  <!-- Family Scrapbook -->
+  <div id="ScrapbookView" style="position:absolute; left:125px; top:0px;" hidden="">
+    <table cellpadding="0" cellspacing="0" border="0" width="450">
+	<tr width="450" align="center">
+	    <td><img src="s/familyphotoalbumtxt.jpg" width="449" height="39" border="0"><img src="s/border39.gif" width="1" height="39" border="0"></td>
+	</tr>
+	<tr width="450" align="center">
+	    <td>
+		<table bgcolor="#3666b4" width="450" cellpadding="0" cellspacing="0" border="0">
+                       <tr width="448" align="center">
+				<td>
+					<table width="448" bgcolor="#EEEEDD" cellpadding="0" cellspacing="0" border="0">
+						<tr>
+							<td colspan="3"><img src="s/onepixel.gif" width="10" height="12" border="0"></td>
+						</tr>
+						<tr>
+							<td><img src="s/onepixel.gif" width="10" border="0"></td>
+							<td valign="top" align="center" bgcolor="#EEEEDD">
+                                                          <!-- Insert content here -->
+                                                          <table cellpadding="5" cellspacing="0" border="0" bgcolor="#EEEEDD">
+                                                               <tr>
+                                                                 	<td valign="top" align="center">
+                                                                        	<font face="Arial,Helvetica,sans-serif" size="3" color="#113399"><b>Veroneau</b></font>
+                                                                        </td>
+                                                               </tr>
+                                                          </table>
+                                                          <br>
+                                                          <table cellpadding="5" cellspacing="0" border="0" bgcolor="#EEEEDD">
+                                                            <tr>
+                                                              <td valign="top" align="center">
+                                                                <font face="'Comic Sans MS',Arial,Helvetica,sans-serif" size="2">
+                                                                  Empty photo album.
+                                                                </font>
+                                                              </td>
+                                                            </tr>
+                                                          </table>
+                                                        </td>
+							<td><img src="s/onepixel.gif" width="10" border="0"></td>
+						</tr>
+						<tr>
+							<td colspan="3"><img src="/onepixel.gif" width="1" height="10" border="0" alt=""></td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			<tr width="450" align="center">
+				<td><img src="onepixel.gif" width="1" height="1" border="0" alt=""></td>
+			</tr>
+		</table>
+	    </td>
+	</tr>
+    </table>
+  </div>
+
+  <div id="pasjsconsole" hidden=""></div>
+</body>
+</html>

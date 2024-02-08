@@ -1,0 +1,36 @@
+#NavBar             {position:absolute}
+#NavBarNoHouse       {position:absolute}
+#LinksBar			 {position:absolute}
+
+#HouseThumb             {position:absolute}
+#HouseThumbShadow       {position:absolute}
+#HouseCaption   {position:absolute}
+#HouseCaptionShadow     {position:absolute}
+#SeeHouseLink       {position:absolute}
+#SeeNeighborhoodLink       {position:absolute}
+#HouseIconLayer       {position:absolute}
+#FamilyStats    {position:absolute}
+
+#FamilyMember1       {position:absolute}
+#FamilyMember2       {position:absolute}
+#FamilyMember3       {position:absolute}
+#FamilyMember4       {position:absolute}
+#FamilyMember5       {position:absolute}
+#FamilyMember6       {position:absolute}
+#FamilyMember7       {position:absolute}
+#FamilyMember8       {position:absolute}
+#FamilyMemberShadow1       {position:absolute}
+#FamilyMemberShadow2       {position:absolute}
+#FamilyMemberShadow3       {position:absolute}
+#FamilyMemberShadow4       {position:absolute}
+#FamilyMemberShadow5       {position:absolute}
+#FamilyMemberShadow6       {position:absolute}
+#FamilyMemberShadow7       {position:absolute}
+#FamilyMemberShadow8       {position:absolute}
+
+#FloorNav1         {position:absolute}
+#FloorNav2         {position:absolute}
+#FloorNav3         {position:absolute}
+#FloorCaption1         {position:absolute}
+#FloorCaption2         {position:absolute}
+#FloorCaption3         {position:absolute}

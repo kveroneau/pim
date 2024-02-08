@@ -1,0 +1,103 @@
+{
+"sims":
+{"metaData": {
+    "fields": [
+        {"name":"Id", "type":"int"},
+        {"name":"Name", "type":"string"},
+        {"name":"Gender", "type":"string"},
+        {"name":"Bio", "type":"string"},
+        {"name":"Stage", "type":"int"},
+        {"name":"Sign", "type":"int"},
+        {"name":"Career", "type":"string"},
+        {"name":"Job", "type":"string"},
+        {"name":"Performance", "type":"int"},
+        {"name":"Salary", "type":"int"},
+        {"name":"Neat", "type":"int"},
+        {"name":"Outgoing", "type":"int"},
+        {"name":"Active", "type":"int"},
+        {"name":"Playful", "type":"int"},
+        {"name":"Nice", "type":"int"},
+        {"name":"Cooking", "type":"int"},
+        {"name":"Mechanical", "type":"int"},
+        {"name":"Charisma", "type":"int"},
+        {"name":"Body", "type":"int"},
+        {"name":"Logic", "type":"int"},
+        {"name":"Creativity", "type":"int"}
+    ],
+    "root": "Data"
+  }, "Data": [
+  {
+    "Id":1, "Name":"Blanche", "Gender":"Female", "Stage":2, "Bio":"", "Sign":1,
+    "Career":"Fame", "Job":"Insider", "Performance":0, "Salary":0,
+    "Neat":2,"Outgoing":8,"Active":5,"Playful":7,"Nice":3,
+    "Cooking":0,"Mechanical":0,"Charisma":1,"Body":0,"Logic":0,"Creativity":1
+  },{
+    "Id":2, "Name":"Rose", "Gender":"Female", "Stage":2, "Bio":"", "Sign":2,
+    "Career":"Animal Care", "Job":"Pet Groomer", "Performance":8, "Salary":160,
+    "Neat":6,"Outgoing":4,"Active":0,"Playful":5,"Nice":10,
+    "Cooking":1,"Mechanical":0,"Charisma":1,"Body":0,"Logic":0,"Creativity":0
+  },{
+    "Id":3, "Name":"Dorothy", "Gender":"Female", "Stage":2, "Bio":"", "Sign":1,
+    "Career":"Politics", "Job":"Intern", "Performance":-24, "Salary":300,
+    "Neat":6,"Outgoing":10,"Active":4,"Playful":2,"Nice":3,
+    "Cooking":0,"Mechanical":0,"Charisma":4,"Body":0,"Logic":0,"Creativity":0
+  },{
+    "Id":4, "Name":"Sophia", "Gender":"Female", "Stage":2, "Bio":"", "Sign":3,
+    "Career":"Slacker", "Job":"Golf Caddy", "Performance":23, "Salary":90,
+    "Neat":5,"Outgoing":6,"Active":8,"Playful":4,"Nice":2,
+    "Cooking":3,"Mechanical":0,"Charisma":1,"Body":0,"Logic":0,"Creativity":0
+  }
+]},"lots":
+{"metaData": {
+    "fields": [
+        {"name":"Id", "type":"int"},
+        {"name":"Name", "type":"string"},
+        {"name":"Floors", "type":"int"},
+        {"name":"Description", "type":"string"},
+        {"name":"Value", "type":"int"},
+        {"name":"Size", "type":"int"},
+        {"name":"Baths", "type":"int"},
+        {"name":"Beds", "type":"int"},
+        {"name":"StatSize", "type":"int"},
+        {"name":"Furnish", "type":"int"},
+        {"name":"Yard", "type":"int"},
+        {"name":"Upkeep", "type":"int"},
+        {"name":"Layout", "type":"int"}
+    ],
+    "root": "Data"
+  }, "Data": [
+  {
+    "Id":1, "Name":"Number 53 Sim Lane", "Floors":2, "Description":"",
+    "Value":21597, "Size":2691, "Baths":1, "Beds":4, "StatSize":78,
+    "Furnish":29, "Yard":100, "Upkeep":92, "Layout":62
+  }
+]},"families":
+{"metaData": {
+    "fields": [
+        {"name":"Id", "type":"int"},
+        {"name":"Name", "type":"string"},
+        {"name":"Description", "type":"string"},
+        {"name":"Lot", "type":"int"},
+        {"name":"Cash", "type":"int"},
+        {"name":"Days", "type":"int"},
+        {"name":"Members", "type":"int"},
+        {"name":"Friends", "type":"int"},
+        {"name":"Member1", "type":"int"},
+        {"name":"Member2", "type":"int"},
+        {"name":"Member3", "type":"int"},
+        {"name":"Member4", "type":"int"},
+        {"name":"Member5", "type":"int"},
+        {"name":"Member6", "type":"int"},
+        {"name":"Member7", "type":"int"},
+        {"name":"Member8", "type":"int"}
+    ],
+    "root": "Data"
+  }, "Data": [
+  {
+    "Id":1, "Name":"Golden", "Description":"A Sims family inspired by the Golden Girls.",
+    "Lot":1, "Cash":395, "Days":8, "Members":4, "Friends":1,
+    "Member1":1, "Member2":2, "Member3":3, "Member4":4,
+    "Member5":0, "Member6":0, "Member7":0, "Member8":0
+  }
+]},"tables": ["sims","lots","families"]
+}
