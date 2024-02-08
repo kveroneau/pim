@@ -107,6 +107,7 @@
     <RequiredPackages Count="1">
       <Item1>
         <PackageName Value="jslib"/>
+        <MinVersion Minor="6" Valid="True"/>
       </Item1>
     </RequiredPackages>
     <Units Count="2">
