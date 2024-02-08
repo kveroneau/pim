@@ -1025,8 +1025,8 @@ object SimsDBForm: TSimsDBForm
     Height = 584
     Top = 112
     Width = 744
-    ActivePage = SimEditor
-    TabIndex = 0
+    ActivePage = LotEditor
+    TabIndex = 1
     TabOrder = 1
     object SimEditor: TTabSheet
       Caption = 'Sim Editor'
@@ -1495,6 +1495,286 @@ object SimsDBForm: TSimsDBForm
         Height = 220
         Top = 212
         Width = 100
+      end
+    end
+    object LotEditor: TTabSheet
+      Caption = 'Lot Editor'
+      ClientHeight = 553
+      ClientWidth = 734
+      object LotNavigator: TDBNavigator
+        Left = 0
+        Height = 25
+        Top = 0
+        Width = 241
+        BevelOuter = bvNone
+        ChildSizing.EnlargeHorizontal = crsScaleChilds
+        ChildSizing.EnlargeVertical = crsScaleChilds
+        ChildSizing.ShrinkHorizontal = crsScaleChilds
+        ChildSizing.ShrinkVertical = crsScaleChilds
+        ChildSizing.Layout = cclLeftToRightThenTopToBottom
+        ChildSizing.ControlsPerLine = 100
+        ClientHeight = 25
+        ClientWidth = 241
+        DataSource = SimsData.LotDS
+        Options = []
+        TabOrder = 0
+      end
+      object LotInfoGroup: TGroupBox
+        Left = 0
+        Height = 232
+        Top = 40
+        Width = 216
+        Caption = 'Lot Information'
+        ClientHeight = 212
+        ClientWidth = 214
+        TabOrder = 1
+        object Label22: TLabel
+          Left = 19
+          Height = 19
+          Top = 96
+          Width = 44
+          Caption = 'Floors:'
+          Font.Style = [fsBold]
+          ParentColor = False
+          ParentFont = False
+        end
+        object Label23: TLabel
+          Left = 19
+          Height = 19
+          Top = 15
+          Width = 41
+          Caption = 'Value:'
+          Font.Style = [fsBold]
+          ParentColor = False
+          ParentFont = False
+        end
+        object Label25: TLabel
+          Left = 19
+          Height = 19
+          Top = 56
+          Width = 82
+          Caption = 'Square Feet:'
+          Font.Style = [fsBold]
+          ParentColor = False
+          ParentFont = False
+        end
+        object Label26: TLabel
+          Left = 19
+          Height = 19
+          Top = 136
+          Width = 78
+          Caption = 'Bathrooms:'
+          Font.Style = [fsBold]
+          ParentColor = False
+          ParentFont = False
+        end
+        object Label27: TLabel
+          Left = 19
+          Height = 19
+          Top = 176
+          Width = 71
+          Caption = 'Bedrooms:'
+          Font.Style = [fsBold]
+          ParentColor = False
+          ParentFont = False
+        end
+        object DBValue: TDBEdit
+          Left = 112
+          Height = 30
+          Top = 8
+          Width = 80
+          DataField = 'VALUE'
+          DataSource = SimsData.LotDS
+          Alignment = taRightJustify
+          MaxLength = 0
+          TabOrder = 0
+        end
+        object DBSize: TDBEdit
+          Left = 112
+          Height = 30
+          Top = 48
+          Width = 80
+          DataField = 'SIZE'
+          DataSource = SimsData.LotDS
+          Alignment = taRightJustify
+          MaxLength = 0
+          TabOrder = 1
+        end
+        object DBFloors: TDBEdit
+          Left = 112
+          Height = 30
+          Top = 88
+          Width = 80
+          DataField = 'FLOORS'
+          DataSource = SimsData.LotDS
+          Alignment = taRightJustify
+          MaxLength = 0
+          TabOrder = 2
+        end
+        object DBBaths: TDBEdit
+          Left = 112
+          Height = 30
+          Top = 128
+          Width = 80
+          DataField = 'BATHS'
+          DataSource = SimsData.LotDS
+          Alignment = taRightJustify
+          MaxLength = 0
+          TabOrder = 3
+        end
+        object DBBeds: TDBEdit
+          Left = 112
+          Height = 30
+          Top = 168
+          Width = 80
+          DataField = 'BEDS'
+          DataSource = SimsData.LotDS
+          Alignment = taRightJustify
+          MaxLength = 0
+          TabOrder = 4
+        end
+      end
+      object LotStatisticsGroup: TGroupBox
+        Left = 224
+        Height = 233
+        Top = 40
+        Width = 208
+        Caption = 'Lot Statistics'
+        ClientHeight = 213
+        ClientWidth = 206
+        TabOrder = 2
+        object Label24: TLabel
+          Left = 16
+          Height = 19
+          Top = 16
+          Width = 30
+          Caption = 'Size:'
+          Font.Style = [fsBold]
+          ParentColor = False
+          ParentFont = False
+        end
+        object Label28: TLabel
+          Left = 16
+          Height = 19
+          Top = 57
+          Width = 83
+          Caption = 'Furnishings:'
+          Font.Style = [fsBold]
+          ParentColor = False
+          ParentFont = False
+        end
+        object Label29: TLabel
+          Left = 16
+          Height = 19
+          Top = 97
+          Width = 34
+          Caption = 'Yard:'
+          Font.Style = [fsBold]
+          ParentColor = False
+          ParentFont = False
+        end
+        object Label30: TLabel
+          Left = 16
+          Height = 19
+          Top = 137
+          Width = 54
+          Caption = 'Upkeep:'
+          Font.Style = [fsBold]
+          ParentColor = False
+          ParentFont = False
+        end
+        object Label31: TLabel
+          Left = 16
+          Height = 19
+          Top = 177
+          Width = 51
+          Caption = 'Layout:'
+          Font.Style = [fsBold]
+          ParentColor = False
+          ParentFont = False
+        end
+        object DBStatSize: TDBEdit
+          Left = 112
+          Height = 30
+          Top = 8
+          Width = 80
+          DataField = 'STATSIZE'
+          DataSource = SimsData.LotDS
+          Alignment = taRightJustify
+          MaxLength = 0
+          TabOrder = 0
+        end
+        object DBFurnish: TDBEdit
+          Left = 112
+          Height = 30
+          Top = 48
+          Width = 80
+          DataField = 'FURNISH'
+          DataSource = SimsData.LotDS
+          Alignment = taRightJustify
+          MaxLength = 0
+          TabOrder = 1
+        end
+        object DBYard: TDBEdit
+          Left = 112
+          Height = 30
+          Top = 88
+          Width = 80
+          DataField = 'YARD'
+          DataSource = SimsData.LotDS
+          Alignment = taRightJustify
+          MaxLength = 0
+          TabOrder = 2
+        end
+        object DBUpkeep: TDBEdit
+          Left = 112
+          Height = 30
+          Top = 128
+          Width = 80
+          DataField = 'UPKEEP'
+          DataSource = SimsData.LotDS
+          Alignment = taRightJustify
+          MaxLength = 0
+          TabOrder = 3
+        end
+        object DBLayout: TDBEdit
+          Left = 112
+          Height = 30
+          Top = 168
+          Width = 80
+          DataField = 'LAYOUT'
+          DataSource = SimsData.LotDS
+          Alignment = taRightJustify
+          MaxLength = 0
+          TabOrder = 4
+        end
+      end
+      object Label21: TLabel
+        Left = 256
+        Height = 19
+        Top = 8
+        Width = 44
+        Caption = 'Name:'
+        Font.Style = [fsBold]
+        ParentColor = False
+        ParentFont = False
+      end
+      object LotImage: TImage
+        Left = 440
+        Height = 90
+        Top = 40
+        Width = 90
+        AutoSize = True
+      end
+      object DBName: TDBEdit
+        Left = 304
+        Height = 30
+        Top = 0
+        Width = 361
+        DataField = 'NAME'
+        DataSource = SimsData.LotDS
+        MaxLength = 40
+        TabOrder = 3
       end
     end
   end

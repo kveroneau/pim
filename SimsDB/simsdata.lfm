@@ -4,7 +4,7 @@ object SimsData: TSimsData
   Height = 227
   HorizontalOffset = 1068
   VerticalOffset = 135
-  Width = 227
+  Width = 332
   object SimDBF: TDbf
     DateTimeHandling = dtDateTime
     FilePath = 'data/'
@@ -166,5 +166,77 @@ object SimsData: TSimsData
     DataSet = ZodiacDBF
     Left = 171
     Top = 80
+  end
+  object LotDBF: TDbf
+    DateTimeHandling = dtDateTime
+    FilePath = 'data/'
+    IndexDefs = <>
+    OpenMode = omAutoCreate
+    StoreDefs = True
+    TableName = 'lots.dbf'
+    TableLevel = 7
+    Active = True
+    FieldDefs = <    
+      item
+        Name = 'ID'
+        DataType = ftAutoInc
+      end    
+      item
+        Name = 'NAME'
+        DataType = ftString
+        Size = 40
+      end    
+      item
+        Name = 'FLOORS'
+        DataType = ftInteger
+      end    
+      item
+        Name = 'DESCRIPTION'
+        DataType = ftMemo
+      end    
+      item
+        Name = 'VALUE'
+        DataType = ftInteger
+      end    
+      item
+        Name = 'SIZE'
+        DataType = ftInteger
+      end    
+      item
+        Name = 'BATHS'
+        DataType = ftInteger
+      end    
+      item
+        Name = 'BEDS'
+        DataType = ftInteger
+      end    
+      item
+        Name = 'STATSIZE'
+        DataType = ftInteger
+      end    
+      item
+        Name = 'FURNISH'
+        DataType = ftInteger
+      end    
+      item
+        Name = 'YARD'
+        DataType = ftInteger
+      end    
+      item
+        Name = 'UPKEEP'
+        DataType = ftInteger
+      end    
+      item
+        Name = 'LAYOUT'
+        DataType = ftInteger
+      end>
+    FilterOptions = []
+    Left = 248
+    Top = 16
+  end
+  object LotDS: TDataSource
+    DataSet = LotDBF
+    Left = 248
+    Top = 85
   end
 end

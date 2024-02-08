@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ExtCtrls, ComCtrls,
-  DBCtrls, StdCtrls, simsdata, DB, simconsts;
+  DBCtrls, StdCtrls, simsdata, DB, simconsts, dbf;
 
 type
 
@@ -26,7 +26,33 @@ type
     Body: TTrackBar;
     Creativity: TTrackBar;
     DBCareer: TDBEdit;
+    DBBaths: TDBEdit;
+    DBBeds: TDBEdit;
+    DBLayout: TDBEdit;
+    DBUpkeep: TDBEdit;
+    DBYard: TDBEdit;
+    DBFurnish: TDBEdit;
+    DBStatSize: TDBEdit;
+    DBFloors: TDBEdit;
+    DBSize: TDBEdit;
+    DBValue: TDBEdit;
+    DBName: TDBEdit;
     DBJob: TDBEdit;
+    LotImage: TImage;
+    Label21: TLabel;
+    Label24: TLabel;
+    Label25: TLabel;
+    Label26: TLabel;
+    Label27: TLabel;
+    Label28: TLabel;
+    Label29: TLabel;
+    Label30: TLabel;
+    Label31: TLabel;
+    LotStatisticsGroup: TGroupBox;
+    Label22: TLabel;
+    Label23: TLabel;
+    LotInfoGroup: TGroupBox;
+    LotNavigator: TDBNavigator;
     Logic: TTrackBar;
     Mechanical: TTrackBar;
     DBSalary: TDBEdit;
@@ -73,6 +99,7 @@ type
     DBTree: TTreeView;
     SimEditor: TTabSheet;
     Neat: TTrackBar;
+    LotEditor: TTabSheet;
     procedure DBTreeDblClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
@@ -80,7 +107,7 @@ type
     procedure FormShow(Sender: TObject);
     procedure TrackerSync(Sender: TObject);
   private
-    procedure GenerateSimsTree;
+    procedure GenerateTree(ANode: string; DataSet: TDbf; RecordType: TRecordType);
     procedure ClearRecPointers(AParent: string);
   public
     procedure SimsDSChange(Sender: TObject; Field: TField);
@@ -105,7 +132,8 @@ end;
 procedure TSimsDBForm.FormShow(Sender: TObject);
 begin
   SimsDatabase.SimDS.OnDataChange:=@SimsDSChange;
-  GenerateSimsTree;
+  GenerateTree('Sims', SimsDatabase.SimDBF, rtSim);
+  GenerateTree('Lots', SimsDatabase.LotDBF, rtLot);
 end;
 
 procedure TSimsDBForm.TrackerSync(Sender: TObject);
@@ -119,23 +147,24 @@ begin
     SimsDatabase.SimDBF.FieldByName(t.Name).AsInteger:=t.Position;
 end;
 
-procedure TSimsDBForm.GenerateSimsTree;
+procedure TSimsDBForm.GenerateTree(ANode: string; DataSet: TDbf;
+  RecordType: TRecordType);
 var
-  sims, sim: TTreeNode;
+  node, itm: TTreeNode;
   rec: PRecordPtr;
 begin
-  sims:=DBTree.Items.FindNodeWithText('Sims');
-  with SimsDatabase.SimDBF do
+  node:=DBTree.Items.FindNodeWithText(ANode);
+  with DataSet do
   begin
     First;
     repeat
-      sim:=DBTree.Items.AddChild(sims, FieldByName('Name').AsString);
-      sim.ImageIndex:=0;
-      sim.SelectedIndex:=0;
+      itm:=DBTree.Items.AddChild(node, FieldByName('Name').AsString);
+      itm.ImageIndex:=ord(RecordType);
+      itm.SelectedIndex:=ord(RecordType);
       New(rec);
-      rec^.table:=rtSim;
+      rec^.table:=RecordType;
       rec^.id:=RecNo;
-      sim.Data:=rec;
+      itm.Data:=rec;
       Next;
     until EOF;
   end;
@@ -178,7 +207,8 @@ end;
 procedure TSimsDBForm.FormCreate(Sender: TObject);
 begin
   {SimFace.Picture.LoadFromFile('SimsWeb/Families/Golden/family1_face.jpg');
-  SimPhoto.Picture.LoadFromFile('SimsWeb/Families/Golden/family1_full.jpg');}
+  SimPhoto.Picture.LoadFromFile('SimsWeb/Families/Golden/family1_full.jpg');
+  LotImage.Picture.LoadFromFile('SimsWeb/Families/Golden/house-exterior.jpg');}
 end;
 
 procedure TSimsDBForm.DBTreeDblClick(Sender: TObject);
@@ -186,9 +216,12 @@ var
   rec: PRecordPtr;
 begin
   rec:=DBTree.Selected.Data;
+  if not Assigned(rec) then
+    Exit;
   case rec^.table of
     rtSim: SimsDatabase.SimDBF.RecNo:=rec^.id;
   end;
+  EditorTabs.TabIndex:=Ord(rec^.table);
 end;
 
 procedure TSimsDBForm.FormDestroy(Sender: TObject);

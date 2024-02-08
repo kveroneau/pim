@@ -12,6 +12,8 @@ type
   { TSimsData }
 
   TSimsData = class(TDataModule)
+    LotDS: TDataSource;
+    LotDBF: TDbf;
     ZodiacDS: TDataSource;
     ZodiacDBF: TDbf;
     StagesDS: TDataSource;
