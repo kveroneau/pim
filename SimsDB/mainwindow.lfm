@@ -1,0 +1,8 @@
+object SimsDBForm: TSimsDBForm
+  Left = 301
+  Height = 240
+  Top = 135
+  Width = 320
+  Caption = 'The Sims Database'
+  LCLVersion = '2.2.6.0'
+end
