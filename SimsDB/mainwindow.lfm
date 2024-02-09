@@ -1025,8 +1025,8 @@ object SimsDBForm: TSimsDBForm
     Height = 584
     Top = 112
     Width = 744
-    ActivePage = FamilyEditor
-    TabIndex = 2
+    ActivePage = SimEditor
+    TabIndex = 0
     TabOrder = 1
     object SimEditor: TTabSheet
       Caption = 'Sim Editor'
@@ -1525,7 +1525,7 @@ object SimsDBForm: TSimsDBForm
         Top = 40
         Width = 216
         Caption = 'Lot Information'
-        ClientHeight = 212
+        ClientHeight = 230
         ClientWidth = 214
         TabOrder = 1
         object Label22: TLabel
@@ -1640,7 +1640,7 @@ object SimsDBForm: TSimsDBForm
         Top = 40
         Width = 208
         Caption = 'Lot Statistics'
-        ClientHeight = 213
+        ClientHeight = 231
         ClientWidth = 206
         TabOrder = 2
         object Label24: TLabel
@@ -2459,6 +2459,31 @@ object SimsDBForm: TSimsDBForm
         AutoSize = True
       end
     end
+    object GridView: TTabSheet
+      Caption = 'Grid View'
+      ClientHeight = 553
+      ClientWidth = 734
+      object DBGrid: TDBGrid
+        Left = 0
+        Height = 432
+        Top = 24
+        Width = 656
+        Color = clWindow
+        Columns = <>
+        DataSource = SimsData.SimDS
+        Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgRowLines, dgTabs, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgDblClickAutoSize]
+        TabOrder = 0
+      end
+    end
+  end
+  object ExportAllBtn: TButton
+    Left = 128
+    Height = 25
+    Top = 80
+    Width = 155
+    Caption = 'Export to SimsDB.json'
+    OnClick = ExportAllBtnClick
+    TabOrder = 2
   end
   object SmallIcons: TImageList
     Left = 144

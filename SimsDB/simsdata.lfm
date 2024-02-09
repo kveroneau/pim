@@ -129,6 +129,7 @@ object SimsData: TSimsData
         DataType = ftInteger
       end>
     FilterOptions = []
+    OnNewRecord = SimDBFNewRecord
     Left = 24
     Top = 16
   end

@@ -6,7 +6,8 @@ interface
 
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ExtCtrls, ComCtrls,
-  DBCtrls, StdCtrls, Buttons, Spin, simsdata, DB, simconsts, dbf;
+  DBCtrls, StdCtrls, Buttons, Spin, DBGrids, simsdata, DB, simconsts, dbf,
+  fpjson;
 
 type
 
@@ -22,6 +23,7 @@ type
 
   TSimsDBForm = class(TForm)
     BasicInfoGroup: TGroupBox;
+    ExportAllBtn: TButton;
     Charisma: TTrackBar;
     Body: TTrackBar;
     Creativity: TTrackBar;
@@ -33,6 +35,7 @@ type
     DBFamilyName: TDBEdit;
     DBFriends: TDBEdit;
     DBFamilyLot: TDBLookupComboBox;
+    DBGrid: TDBGrid;
     DBMember1: TDBLookupComboBox;
     DBMember2: TDBLookupComboBox;
     DBMember3: TDBLookupComboBox;
@@ -141,8 +144,10 @@ type
     FamilyEditor: TTabSheet;
     MemberBtn1: TSpeedButton;
     Members: TSpinEdit;
+    GridView: TTabSheet;
     procedure DBMembersChange(Sender: TObject);
     procedure DBTreeDblClick(Sender: TObject);
+    procedure ExportAllBtnClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure FormResize(Sender: TObject);
@@ -153,9 +158,11 @@ type
     procedure GenerateTree(ANode: string; DataSet: TDbf; RecordType: TRecordType);
     procedure ClearRecPointers(AParent: string);
     procedure SetMemebers(count: integer);
+    procedure RebuildNode(ANode: string; DataSet: TDbf; RecordType: TRecordType);
   public
     procedure SimsDSChange(Sender: TObject; Field: TField);
     procedure FamilyDSChange(Sender: TObject; Field: TField);
+    procedure AfterPost(DataSet: TDataSet);
   end;
 
 var
@@ -178,6 +185,9 @@ procedure TSimsDBForm.FormShow(Sender: TObject);
 begin
   SimsDatabase.SimDS.OnDataChange:=@SimsDSChange;
   SimsDatabase.FamilyDS.OnDataChange:=@FamilyDSChange;
+  SimsDatabase.SimDBF.AfterPost:=@AfterPost;
+  SimsDatabase.LotDBF.AfterPost:=@AfterPost;
+  SimsDatabase.FamilyDBF.AfterPost:=@AfterPost;
   GenerateTree('Sims', SimsDatabase.SimDBF, rtSim);
   GenerateTree('Lots', SimsDatabase.LotDBF, rtLot);
   GenerateTree('Families', SimsDatabase.FamilyDBF, rtFamily);
@@ -265,6 +275,17 @@ begin
   end;
 end;
 
+procedure TSimsDBForm.RebuildNode(ANode: string; DataSet: TDbf;
+  RecordType: TRecordType);
+var
+  node: TTreeNode;
+begin
+  ClearRecPointers(ANode);
+  node:=DBTree.Items.FindNodeWithText(ANode);
+  node.DeleteChildren;
+  GenerateTree(ANode, DataSet, RecordType);
+end;
+
 procedure TSimsDBForm.SimsDSChange(Sender: TObject; Field: TField);
 var
   i: Integer;
@@ -286,8 +307,29 @@ begin
 end;
 
 procedure TSimsDBForm.FamilyDSChange(Sender: TObject; Field: TField);
+var
+  i, simid: Integer;
+  img: TImage;
 begin
   Members.Value:=SimsDatabase.FamilyDBF.FieldByName('Members').AsInteger;
+  for i:=1 to Members.Value do
+  begin
+    simid:=SimsDatabase.FamilyDBF.FieldByName('Member'+IntToStr(i)).AsInteger;
+    if simid > -1 then
+    begin
+      img:=FindSubComponent('SimFace'+IntToStr(i)) as TImage;
+      img.Picture.LoadFromFile('SimsWeb/Families/'+DBFamilyName.Text+'/family'+IntToStr(i)+'_face.jpg');
+    end;
+  end;
+end;
+
+procedure TSimsDBForm.AfterPost(DataSet: TDataSet);
+begin
+  case DataSet.Name of
+    'SimDBF': RebuildNode('Sims', SimsDatabase.SimDBF, rtSim);
+    'LotDBF': RebuildNode('Lots', SimsDatabase.LotDBF, rtLot);
+    'FamilyDBF': RebuildNode('Families', SimsDatabase.FamilyDBF, rtFamily);
+  end;
 end;
 
 procedure TSimsDBForm.FormCreate(Sender: TObject);
@@ -310,6 +352,23 @@ begin
     rtFamily: SimsDatabase.FamilyDBF.RecNo:=rec^.id;
   end;
   EditorTabs.TabIndex:=Ord(rec^.table);
+end;
+
+{ Originally thought I could use the TJSONExporter, but I think doing it myself
+  is better. }
+procedure TSimsDBForm.ExportAllBtnClick(Sender: TObject);
+var
+  json: TJSONObject;
+begin
+  json:=SimsDatabase.ExportData;
+  with TStringList.Create do
+  try
+    Text:=json.AsJSON;
+    SaveToFile('SimsDB.json');
+  finally
+    Free;
+    json.Free;
+  end;
 end;
 
 procedure TSimsDBForm.DBMembersChange(Sender: TObject);

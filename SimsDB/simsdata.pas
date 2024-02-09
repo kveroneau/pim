@@ -5,7 +5,7 @@ unit simsdata;
 interface
 
 uses
-  Classes, SysUtils, dbf, DB, simconsts;
+  Classes, SysUtils, dbf, DB, simconsts, fpjson, jsonparser;
 
 type
 
@@ -24,11 +24,14 @@ type
     SimDBF: TDbf;
     procedure DataModuleCreate(Sender: TObject);
     procedure DataModuleDestroy(Sender: TObject);
+    procedure SimDBFNewRecord(DataSet: TDataSet);
   private
     procedure GenerateStageDataset;
     procedure GenerateZodiacDataset;
+    function ExportDBF(DataSet: TDataSet): TJSONObject;
   public
     procedure JumpToSim(SimID: Integer);
+    function ExportData: TJSONObject;
   end;
 
 var
@@ -65,6 +68,16 @@ begin
   ZodiacDBF.Active:=False;
   StagesDBF.Active:=False;
   SimDBF.Active:=False;
+end;
+
+procedure TSimsData.SimDBFNewRecord(DataSet: TDataSet);
+var
+  i: integer;
+begin
+  for i:=0 to Length(SIM_PERSONALITY)-1 do
+    SimDBF.FieldByName(SIM_PERSONALITY[i]).AsInteger:=0;
+  for i:=0 to Length(SIM_SKILLS)-1 do
+    SimDBF.FieldByName(SIM_SKILLS[i]).AsInteger:=0;
 end;
 
 procedure TSimsData.GenerateStageDataset;
@@ -104,6 +117,68 @@ begin
   SimDBF.Filtered:=True;
   SimDBF.Filtered:=False;
   SimDBF.Filter:=flt;
+end;
+
+function TSimsData.ExportData: TJSONObject;
+var
+  tbls: TJSONArray;
+begin
+  Result:=TJSONObject.Create;
+  with SimsDatabase do
+  begin
+    Result.Add('sims', ExportDBF(SimDBF));
+    Result.Add('lots', ExportDBF(LotDBF));
+    Result.Add('families', ExportDBF(FamilyDBF));
+  end;
+  tbls:=TJSONArray.Create(['sims', 'lots', 'families']);
+  Result.Add('tables', tbls);
+end;
+
+function TSimsData.ExportDBF(DataSet: TDataSet): TJSONObject;
+var
+  md, field: TJSONObject;
+  data, fields: TJSONArray;
+  i, oldrec: integer;
+  fd: TFieldDef;
+begin
+  Result:=TJSONObject.Create;
+  md:=TJSONObject.Create;
+  data:=TJSONArray.Create;
+  fields:=TJSONArray.Create;
+  for i:=0 to DataSet.FieldCount-1 do
+  begin
+    fd:=DataSet.FieldDefs.Items[i];
+    field:=TJSONObject.Create;
+    field.Strings['name']:=fd.Name;
+    if (fd.DataType = ftAutoInc) or (fd.DataType = ftInteger) then
+      field.Strings['type']:='int'
+    else if fd.DataType = ftString then
+      field.Strings['type']:='string';
+    fields.Add(field);
+  end;
+  md.Add('fields', fields);
+  md.Add('root', 'Data');
+  with DataSet do
+  begin
+    oldrec:=RecNo;
+    First;
+    repeat
+      field:=TJSONObject.Create;
+      for i:=0 to DataSet.FieldCount-1 do
+      begin
+        fd:=DataSet.FieldDefs.Items[i];
+        if (fd.DataType = ftAutoInc) or (fd.DataType = ftInteger) then
+          field.Add(fd.Name, DataSet.Fields.Fields[i].AsInteger)
+        else if fd.DataType = ftString then
+          field.Add(fd.Name, DataSet.Fields.Fields[i].AsString);
+      end;
+      data.Add(field);
+      Next;
+    until EOF;
+    RecNo:=oldrec;
+  end;
+  Result.Add('metaData', md);
+  Result.Add('Data', data);
 end;
 
 end.
