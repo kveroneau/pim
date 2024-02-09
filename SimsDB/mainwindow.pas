@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ExtCtrls, ComCtrls,
-  DBCtrls, StdCtrls, simsdata, DB, simconsts, dbf;
+  DBCtrls, StdCtrls, Buttons, Spin, simsdata, DB, simconsts, dbf;
 
 type
 
@@ -28,7 +28,21 @@ type
     DBCareer: TDBEdit;
     DBBaths: TDBEdit;
     DBBeds: TDBEdit;
+    DBCash: TDBEdit;
+    DBDays: TDBEdit;
+    DBFamilyName: TDBEdit;
+    DBFriends: TDBEdit;
+    DBFamilyLot: TDBLookupComboBox;
+    DBMember1: TDBLookupComboBox;
+    DBMember2: TDBLookupComboBox;
+    DBMember3: TDBLookupComboBox;
+    DBMember4: TDBLookupComboBox;
+    DBMember5: TDBLookupComboBox;
+    DBMember6: TDBLookupComboBox;
+    DBMember7: TDBLookupComboBox;
+    DBMember8: TDBLookupComboBox;
     DBLayout: TDBEdit;
+    FamilyNavigator: TDBNavigator;
     DBUpkeep: TDBEdit;
     DBYard: TDBEdit;
     DBFurnish: TDBEdit;
@@ -38,6 +52,22 @@ type
     DBValue: TDBEdit;
     DBName: TDBEdit;
     DBJob: TDBEdit;
+    FamilyInfoGroup: TGroupBox;
+    FamilyLotImage: TImage;
+    MemberBtn2: TSpeedButton;
+    MemberBtn3: TSpeedButton;
+    MemberBtn4: TSpeedButton;
+    MemberBtn5: TSpeedButton;
+    MemberBtn6: TSpeedButton;
+    MemberBtn7: TSpeedButton;
+    MemberBtn8: TSpeedButton;
+    MembersGroup: TGroupBox;
+    Label32: TLabel;
+    Label33: TLabel;
+    Label34: TLabel;
+    Label35: TLabel;
+    Label36: TLabel;
+    Label37: TLabel;
     LotImage: TImage;
     Label21: TLabel;
     Label24: TLabel;
@@ -67,6 +97,14 @@ type
     PActive: TTrackBar;
     Playful: TTrackBar;
     Nice: TTrackBar;
+    SimFace1: TImage;
+    SimFace2: TImage;
+    SimFace3: TImage;
+    SimFace4: TImage;
+    SimFace5: TImage;
+    SimFace6: TImage;
+    SimFace7: TImage;
+    SimFace8: TImage;
     SimPhoto: TImage;
     Label15: TLabel;
     Label16: TLabel;
@@ -100,17 +138,24 @@ type
     SimEditor: TTabSheet;
     Neat: TTrackBar;
     LotEditor: TTabSheet;
+    FamilyEditor: TTabSheet;
+    MemberBtn1: TSpeedButton;
+    Members: TSpinEdit;
+    procedure DBMembersChange(Sender: TObject);
     procedure DBTreeDblClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure FormResize(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure TrackerSync(Sender: TObject);
+    procedure JumpToSim(Sender: TObject);
   private
     procedure GenerateTree(ANode: string; DataSet: TDbf; RecordType: TRecordType);
     procedure ClearRecPointers(AParent: string);
+    procedure SetMemebers(count: integer);
   public
     procedure SimsDSChange(Sender: TObject; Field: TField);
+    procedure FamilyDSChange(Sender: TObject; Field: TField);
   end;
 
 var
@@ -132,8 +177,10 @@ end;
 procedure TSimsDBForm.FormShow(Sender: TObject);
 begin
   SimsDatabase.SimDS.OnDataChange:=@SimsDSChange;
+  SimsDatabase.FamilyDS.OnDataChange:=@FamilyDSChange;
   GenerateTree('Sims', SimsDatabase.SimDBF, rtSim);
   GenerateTree('Lots', SimsDatabase.LotDBF, rtLot);
+  GenerateTree('Families', SimsDatabase.FamilyDBF, rtFamily);
 end;
 
 procedure TSimsDBForm.TrackerSync(Sender: TObject);
@@ -145,6 +192,15 @@ begin
     SimsDatabase.SimDBF.FieldByName('Active').AsInteger:=t.Position
   else
     SimsDatabase.SimDBF.FieldByName(t.Name).AsInteger:=t.Position;
+end;
+
+procedure TSimsDBForm.JumpToSim(Sender: TObject);
+var
+  c: TComponent;
+begin
+  c:=TComponent(Sender);
+  SimsDatabase.JumpToSim(SimsDatabase.FamilyDBF.FieldByName('Member'+RightStr(c.Name, 1)).AsInteger);
+  EditorTabs.TabIndex:=0;
 end;
 
 procedure TSimsDBForm.GenerateTree(ANode: string; DataSet: TDbf;
@@ -184,6 +240,31 @@ begin
   end;
 end;
 
+procedure TSimsDBForm.SetMemebers(count: integer);
+var
+  i: Integer;
+  c: TWinControl;
+  b: TSpeedButton;
+begin
+  if (count < 1) or (count > 8) then
+    Exit;
+  for i:=1 to 8 do
+  begin
+    c:=TWinControl(FindSubComponent('DBMember'+IntToStr(i)));
+    b:=TSpeedButton(FindSubComponent('MemberBtn'+IntToStr(i)));
+    if count >= i then
+    begin
+      c.Visible:=True;
+      b.Visible:=True;
+    end
+    else
+    begin
+      c.Visible:=False;
+      b.Visible:=False;
+    end;
+  end;
+end;
+
 procedure TSimsDBForm.SimsDSChange(Sender: TObject; Field: TField);
 var
   i: Integer;
@@ -204,6 +285,11 @@ begin
   end;
 end;
 
+procedure TSimsDBForm.FamilyDSChange(Sender: TObject; Field: TField);
+begin
+  Members.Value:=SimsDatabase.FamilyDBF.FieldByName('Members').AsInteger;
+end;
+
 procedure TSimsDBForm.FormCreate(Sender: TObject);
 begin
   {SimFace.Picture.LoadFromFile('SimsWeb/Families/Golden/family1_face.jpg');
@@ -220,13 +306,23 @@ begin
     Exit;
   case rec^.table of
     rtSim: SimsDatabase.SimDBF.RecNo:=rec^.id;
+    rtLot: SimsDatabase.LotDBF.RecNo:=rec^.id;
+    rtFamily: SimsDatabase.FamilyDBF.RecNo:=rec^.id;
   end;
   EditorTabs.TabIndex:=Ord(rec^.table);
+end;
+
+procedure TSimsDBForm.DBMembersChange(Sender: TObject);
+begin
+  SetMemebers(Members.Value);
+  SimsDatabase.FamilyDBF.FieldByName('Members').AsInteger:=Members.Value;
 end;
 
 procedure TSimsDBForm.FormDestroy(Sender: TObject);
 begin
   ClearRecPointers('Sims');
+  ClearRecPointers('Lots');
+  ClearRecPointers('Families');
 end;
 
 end.

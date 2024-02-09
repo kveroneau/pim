@@ -12,6 +12,8 @@ type
   { TSimsData }
 
   TSimsData = class(TDataModule)
+    FamilyDS: TDataSource;
+    FamilyDBF: TDbf;
     LotDS: TDataSource;
     LotDBF: TDbf;
     ZodiacDS: TDataSource;
@@ -26,7 +28,7 @@ type
     procedure GenerateStageDataset;
     procedure GenerateZodiacDataset;
   public
-
+    procedure JumpToSim(SimID: Integer);
   end;
 
 var
@@ -91,6 +93,17 @@ begin
       FieldByName('ZodiacSign').AsString:=SIM_ZODIAC_SIGNS[i];
       Post;
     end;
+end;
+
+procedure TSimsData.JumpToSim(SimID: Integer);
+var
+  flt: string;
+begin
+  flt:=SimDBF.Filter;
+  SimDBF.Filter:='ID='+IntToStr(SimID);
+  SimDBF.Filtered:=True;
+  SimDBF.Filtered:=False;
+  SimDBF.Filter:=flt;
 end;
 
 end.

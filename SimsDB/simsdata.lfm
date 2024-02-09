@@ -4,7 +4,7 @@ object SimsData: TSimsData
   Height = 227
   HorizontalOffset = 1068
   VerticalOffset = 135
-  Width = 332
+  Width = 384
   object SimDBF: TDbf
     DateTimeHandling = dtDateTime
     FilePath = 'data/'
@@ -170,7 +170,22 @@ object SimsData: TSimsData
   object LotDBF: TDbf
     DateTimeHandling = dtDateTime
     FilePath = 'data/'
-    IndexDefs = <>
+    IndexDefs = <    
+      item
+        IndexFile = 'LOTID'
+        SortField = 'ID'
+        Options = [ixPrimary, ixUnique]
+      end    
+      item
+        IndexFile = 'LOTNAME'
+        SortField = 'NAME'
+        Options = [ixCaseInsensitive]
+      end    
+      item
+        IndexFile = 'FLOORS'
+        SortField = 'FLOORS'
+        Options = []
+      end>
     OpenMode = omAutoCreate
     StoreDefs = True
     TableName = 'lots.dbf'
@@ -237,6 +252,100 @@ object SimsData: TSimsData
   object LotDS: TDataSource
     DataSet = LotDBF
     Left = 248
+    Top = 85
+  end
+  object FamilyDBF: TDbf
+    DateTimeHandling = dtDateTime
+    FilePath = 'data/'
+    IndexDefs = <    
+      item
+        IndexFile = 'FAMILYID'
+        SortField = 'ID'
+        Options = [ixPrimary, ixUnique]
+      end    
+      item
+        IndexFile = 'FAMILYNAME'
+        SortField = 'NAME'
+        Options = [ixCaseInsensitive]
+      end>
+    OpenMode = omAutoCreate
+    StoreDefs = True
+    TableName = 'families.dbf'
+    TableLevel = 7
+    Active = True
+    FieldDefs = <    
+      item
+        Name = 'ID'
+        DataType = ftAutoInc
+      end    
+      item
+        Name = 'NAME'
+        DataType = ftString
+        Size = 40
+      end    
+      item
+        Name = 'DESCRIPTION'
+        DataType = ftMemo
+      end    
+      item
+        Name = 'LOT'
+        DataType = ftInteger
+      end    
+      item
+        Name = 'CASH'
+        DataType = ftInteger
+      end    
+      item
+        Name = 'DAYS'
+        DataType = ftInteger
+      end    
+      item
+        Name = 'MEMBERS'
+        DataType = ftInteger
+      end    
+      item
+        Name = 'FRIENDS'
+        DataType = ftInteger
+      end    
+      item
+        Name = 'MEMBER1'
+        DataType = ftInteger
+      end    
+      item
+        Name = 'MEMBER2'
+        DataType = ftInteger
+      end    
+      item
+        Name = 'MEMBER3'
+        DataType = ftInteger
+      end    
+      item
+        Name = 'MEMBER4'
+        DataType = ftInteger
+      end    
+      item
+        Name = 'MEMBER5'
+        DataType = ftInteger
+      end    
+      item
+        Name = 'MEMBER6'
+        DataType = ftInteger
+      end    
+      item
+        Name = 'MEMBER7'
+        DataType = ftInteger
+      end    
+      item
+        Name = 'MEMBER8'
+        DataType = ftInteger
+      end>
+    FilterOptions = []
+    Left = 320
+    Top = 16
+  end
+  object FamilyDS: TDataSource
+    DataSet = FamilyDBF
+    Left = 320
     Top = 85
   end
 end
